@@ -30,6 +30,11 @@
   text-align: center;
 }
 
+.landingPic {
+  height: 15em;
+  padding: 1.5em;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
