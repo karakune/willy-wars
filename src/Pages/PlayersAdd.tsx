@@ -10,14 +10,16 @@ export default function PlayersAdd (){
         validate: {
             validatePlayers: (players: any) => {
                 clearErrors("root.missingName");
+
                 if (players.length < 2) {
                     return "Must have at least two players";
                 }
+
                 if (new Set(players.map((p: Player) => p.name)).size !== players.length) {
                     return "All player names must be unique";
-                } else {
-                    return true;
                 }
+
+                return true;
             },
         },
         }});
