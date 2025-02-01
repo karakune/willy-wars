@@ -11,7 +11,7 @@ export default function LandingPage (){
                 <Link to="/PlayersAdd">
                     <button>New Tourney</button>
                 </Link>
-                <Link to="/Round Display">
+                <Link to="/RoundDisplay">
                     <button>Pick up where ya left off</button>
                 </Link>
             </div>

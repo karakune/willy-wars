@@ -1,16 +1,8 @@
 
 export class Player {
-    private static idCounter = 0;
-    private readonly _id: number;
     private _rank: number = 0;
     private _score: number = 0;
-
-    constructor(
-        public name: string,
-    ) {
-        this._id = Player.idCounter;
-        Player.idCounter++;
-    }
+    public name: string = "";
 
     get score(): number {
         return this._score;
@@ -23,8 +15,5 @@ export class Player {
     }
     set rank(value: number) {
         this._rank = value;
-    }
-    get id(): number {
-        return this._id;
     }
 }

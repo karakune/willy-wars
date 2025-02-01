@@ -12,6 +12,9 @@ export default function SubmitScores (){
                 <Link to="/WilliesDistribution">
                     <button>Round Over</button>
                 </Link>
+                <Link to="/FinalResults"> {/* TODO: choose between WilliesDistribution or FinalResults based on round #*/}
+                    <button>Tourney Over</button>
+                </Link>
             </div>
         </div>
     );
