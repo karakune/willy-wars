@@ -28,6 +28,7 @@ export default function PlayersAdd (){
     const onSubmit: SubmitHandler<any> = (_) => navigate("/GamesAdd");
     const onError: SubmitErrorHandler<any> = (erroneousFields) => {
         console.log(erroneousFields);
+        // @ts-ignore
         if (erroneousFields.players?.some(p => p.name.type === "required")) {
             setError("root.missingName", {
                 type: "missingName",

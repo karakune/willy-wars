@@ -1,4 +1,3 @@
-
 export class Player {
     private _rank: number = 0;
     private _score: number = 0;
