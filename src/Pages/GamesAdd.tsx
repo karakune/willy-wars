@@ -4,12 +4,16 @@ import {useEffect} from "react";
 import {useForm, useFieldArray, SubmitHandler, SubmitErrorHandler} from "react-hook-form";
 import {Link, useNavigate} from "react-router";
 
-export default function GamesAdd (){
+export default function GamesAdd ({games, onGamesSubmitted}: {games: Game[], onGamesSubmitted: any}){
     const {control, register, handleSubmit, setError, clearErrors, reset, formState: {errors, isSubmitSuccessful}} = useForm();
     const {fields, append, remove} = useFieldArray({control, name: "games", rules: {
             validate: {
                 validateGames: (games: any) => {
                     clearErrors("root.missingName");
+
+                    if (games == null || games.length === 0) {
+                        return "Must have at least one game";
+                    }
 
                     if (new Set(games.map((p: Game) => p.name)).size !== games.length) {
                         return "All game names must be unique";
@@ -21,11 +25,14 @@ export default function GamesAdd (){
         }});
 
     const navigate = useNavigate();
-    const onSubmit: SubmitHandler<any> = (_) => navigate("/RoundDisplay");
+    const onSubmit: SubmitHandler<any> = (results) => {
+        onGamesSubmitted(results.games);
+        navigate("/RoundDisplay");
+    };
     const onError: SubmitErrorHandler<any> = (erroneousFields) => {
         console.log(erroneousFields);
         // @ts-ignore
-        if (erroneousFields.games?.some(p => p.name.type === "required")) {
+        if (erroneousFields?.games?.some(g => g != null && g.name.type === "required")) {
             setError("root.missingName", {
                 type: "missingName",
                 message: "All games must have a name"
@@ -42,6 +49,7 @@ export default function GamesAdd (){
             <h1>Enter Games</h1>
             {errors?.games && <p style={{color: "red"}}>{errors?.games?.root?.message}</p>}
             {errors?.root?.missingName && <p style={{color: "red"}}>{errors?.root?.missingName?.message}</p>}
+            {/* TODO: 1 slot visible on page load */}
             {fields.map((player, i) => (
                 <div className="row" key={player.id}>
                     <input placeholder="Enter a name..." {...register(`games.${i}.name` as const, {required: true,})} />
