@@ -23,7 +23,7 @@ function SetupRoutes() {
                 <Route path="/" element={<LandingPage/>}/>
                 <Route path="/PlayersAdd" element={<PlayersAdd players={players}
                     onPlayersSubmitted={(submitted: Player[]) => setPlayers(submitted)}/>}/>
-                <Route path="/GamesAdd" element={<GamesAdd games={games}
+                <Route path="/GamesAdd" element={<GamesAdd players={players}
                     onGamesSubmitted={(submitted: Game[]) => setGames(submitted)}/>}/>
                 <Route path="/RoundDisplay" element={<RoundDisplay players={players} games={games}/>}/>
                 <Route path="/SubmitScores" element={<SubmitScores/>}/>
