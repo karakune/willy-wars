@@ -3,6 +3,7 @@ import {Game} from "../Game.tsx";
 import {useEffect} from "react";
 import {useForm, useFieldArray, SubmitHandler, SubmitErrorHandler} from "react-hook-form";
 import {Link, useNavigate} from "react-router";
+import ConfirmationPopup from '../ConfirmationPopup.tsx'
 
 export default function GamesAdd ({games, onGamesSubmitted}: {games: Game[], onGamesSubmitted: any}){
     const {control, register, handleSubmit, setError, clearErrors, reset, formState: {errors, isSubmitSuccessful}} = useForm();
@@ -25,9 +26,12 @@ export default function GamesAdd ({games, onGamesSubmitted}: {games: Game[], onG
         }});
 
     const navigate = useNavigate();
-    const onSubmit: SubmitHandler<any> = (results) => {
-        onGamesSubmitted(results.games);
-        navigate("/RoundDisplay");
+    const onSubmit: SubmitHandler<any> = async (results) => {
+        if (await ConfirmationPopup(`You've got ${0} players and ${results.games.length} games. Ready to start?`,
+            "Hold up", "Let's GOOOOO")) {
+            onGamesSubmitted(results.games);
+            navigate("/RoundDisplay");
+        }
     };
     const onError: SubmitErrorHandler<any> = (erroneousFields) => {
         console.log(erroneousFields);
