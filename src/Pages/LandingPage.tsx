@@ -13,15 +13,17 @@ export default function LandingPage (){
     };
 
     return (
-        <div>
+        <>
             <h1>WILLY WARS</h1>
-            <img src={landingPic} className="landingPic"/>
-            <div className="row">
+            <div className="mainArea">
+                <img src={landingPic} className="landingPic"/>
+            </div>
+            <div className="bottomArea">
                 <button onClick={confirmNew}>New Tourney</button>
                 <Link to="/RoundDisplay">
                     <button>Pick up where ya left off</button>
                 </Link>
             </div>
-        </div>
+        </>
     );
 }
