@@ -1,10 +1,10 @@
 import "../App.css";
-import {Game} from "../Game.tsx";
+import {Game} from "../Models/Game.tsx";
 import {useEffect} from "react";
 import {useForm, useFieldArray, SubmitHandler, SubmitErrorHandler} from "react-hook-form";
 import {Link, useNavigate} from "react-router";
 import ConfirmationPopup from '../ConfirmationPopup.tsx'
-import {Player} from "../Player.tsx";
+import {Player} from "../Models/Player.tsx";
 
 export default function GamesAdd ({players, onGamesSubmitted}: {players: Player[], onGamesSubmitted: any}){
     const {control, register, handleSubmit, setError, clearErrors, reset, formState: {errors, isSubmitSuccessful}} = useForm();

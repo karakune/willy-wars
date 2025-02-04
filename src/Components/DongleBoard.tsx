@@ -1,5 +1,5 @@
 import PlayerBadge from "./PlayerBadge.tsx";
-import {Player} from "../Player.tsx";
+import {Player} from "../Models/Player.tsx";
 
 function PlayerRow({player}: {player: Player}) {
     return (
@@ -12,18 +12,19 @@ function PlayerRow({player}: {player: Player}) {
     )
 }
 
-export default function DongleBoard() {
+export default function DongleBoard({players}: {players: Player[]}) {
     return (
         <div className="leaderboard">
             <div className="leaderboard-header">
                 <label className="leaderboard-header-player">Player</label>
                 <label className="leaderboard-header-score">Score</label>
             </div>
-            <PlayerRow player={new Player()}/>
-            <PlayerRow player={new Player()}/>
-            <PlayerRow player={new Player()}/>
-            <PlayerRow player={new Player()}/>
-            <PlayerRow player={new Player()}/>
+            {players.map(p => <PlayerRow player={p}/>)}
+            {/*<PlayerRow player={new Player()}/>*/}
+            {/*<PlayerRow player={new Player()}/>*/}
+            {/*<PlayerRow player={new Player()}/>*/}
+            {/*<PlayerRow player={new Player()}/>*/}
+            {/*<PlayerRow player={new Player()}/>*/}
         </div>
     );
 }

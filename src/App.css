@@ -73,6 +73,15 @@ html, body, #app, #app>div, div#root {
   margin: 10px;
 }
 
+.column-round {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  flex-basis: 50%;
+  margin: 10px;
+}
+
 .leaderboard {
   display: flex;
   flex: 1;
@@ -120,11 +129,28 @@ html, body, #app, #app>div, div#root {
   align-items: center;
 }
 
-.roundParticipants {
+.round-participants {
   display: flex;
+  flex-direction: row;
   flex: 2;
   background-color: mediumseagreen;
   border-radius: 8px;
+}
+
+.round-participants-badges {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+}
+
+.round-participants-vs {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: bold;
 }
 
 .bottomArea {
@@ -222,7 +248,7 @@ button {
 
 .player-badge img {
   display: flex;
-  flex: 1;
+  flex: 0;
   height: 64px;
 }
 

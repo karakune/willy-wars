@@ -1,5 +1,5 @@
 import "../App.css";
-import {Player} from "../Player.tsx";
+import {Player} from "../Models/Player.tsx";
 import {useEffect} from "react";
 import {useForm, useFieldArray, SubmitHandler, SubmitErrorHandler} from "react-hook-form";
 import {Link, useNavigate} from "react-router";

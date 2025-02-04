@@ -10,22 +10,42 @@ import FinalResults from "./Pages/FinalResults.tsx"
 import FixAMistake from "./Pages/FixAMistake.tsx"
 import {BrowserRouter, Route, Routes} from "react-router";
 import {useState} from "react";
-import {Player} from "./Player.tsx";
-import {Game} from "./Game.tsx";
+import {Player, loadPlayersIntoState, savePlayers} from "./Models/Player.tsx";
+import {Game, loadGamesIntoState, saveGames} from "./Models/Game.tsx";
+import {loadTourneyIntoState, Tourney} from "./Models/Tourney.tsx";
 
 function SetupRoutes() {
     const [players, setPlayers] = useState<Array<Player>>([]);
     const [games, setGames] = useState<Array<Game>>([]);
+    const [tourney, setTourney] = useState<Tourney>();
+
+    function onPlayersSubmitted(submitted: Player[]) {
+        savePlayers(submitted);
+        loadPlayersIntoState(setPlayers, submitted);
+    }
+
+    function onGamesSubmitted(submitted: Game[]) {
+        saveGames(submitted);
+        setTourney(new Tourney());
+        loadGamesIntoState(setGames, submitted);
+    }
+
+    function getTourney(): Tourney {
+        if (tourney == null) {
+            loadTourneyIntoState(setTourney);
+        }
+        return tourney!;
+    }
 
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<LandingPage/>}/>
                 <Route path="/PlayersAdd" element={<PlayersAdd players={players}
-                    onPlayersSubmitted={(submitted: Player[]) => setPlayers(submitted)}/>}/>
+                    onPlayersSubmitted={onPlayersSubmitted}/>}/>
                 <Route path="/GamesAdd" element={<GamesAdd players={players}
-                    onGamesSubmitted={(submitted: Game[]) => setGames(submitted)}/>}/>
-                <Route path="/RoundDisplay" element={<RoundDisplay players={players} games={games}/>}/>
+                    onGamesSubmitted={onGamesSubmitted}/>}/>
+                <Route path="/RoundDisplay" element={<RoundDisplay players={players} tourney={getTourney()}/>}/>
                 <Route path="/SubmitScores" element={<SubmitScores/>}/>
                 <Route path="/WilliesDistribution" element={<WilliesDistribution/>}/>
                 <Route path="/FinalResults" element={<FinalResults/>}/>
