@@ -194,6 +194,10 @@ button {
   cursor: pointer;
 }
 
+.big-button {
+  font-size: large
+}
+
 button:hover {
   border-color: #396cd8;
 }

@@ -30,7 +30,7 @@ export default function SubmitScores (){
                     </Link>
                     <Link
                         to="/FinalResults"> {/* TODO: choose between WilliesDistribution or FinalResults based on round #*/}
-                        <button style={{fontSize: "large"}}>Tourney Over</button>
+                        <button className="big-button">Tourney Over</button>
                     </Link>
                 </div>
                 <Link to="/RoundDisplay" style={{alignSelf:"flex-start", marginLeft: "3em"}}>

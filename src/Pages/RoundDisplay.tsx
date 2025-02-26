@@ -15,7 +15,7 @@ export default function RoundDisplay ({players, tourney}: {players: Player[], to
                     <h3 style={{marginTop: 0, marginBottom: 0}}>Round {tourney.getCurrentMatchInfo().round}</h3>
                     <RoundParticipants participants={tourney.getCurrentMatchInfo().participants}/>
                     <Link to="/SubmitScores">
-                        <button style={{margin: 10}}>Submit Scores</button>
+                        <button className="big-button" style={{margin: 10}}>Submit Scores</button>
                     </Link>
                 </div>
                 <div className="column-round">

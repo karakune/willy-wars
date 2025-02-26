@@ -1,0 +1,17 @@
+.distribution-line {
+    display: flex;
+    align-items: center;
+}
+
+.distribution-line span {
+    margin-left: 1em;
+    font-size: larger;
+}
+
+.distribution-line span b {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
