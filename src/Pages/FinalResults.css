@@ -1,0 +1,82 @@
+.top-three {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.first {
+    margin-left: 2em;
+}
+
+.first .title {
+    font-size: xxx-large;
+    font-weight: bold;
+}
+
+.first img {
+    height: 6em;
+    aspect-ratio: 1;
+    padding-top: 0.5em;
+}
+
+.first .player-name {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.second {
+    margin-top: 1em;
+}
+
+.second .title {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.second img {
+    height: 4em;
+    aspect-ratio: 1;
+    padding-top: 0.5em;
+}
+
+.second .player-name {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.third {
+    margin-top: 3em;
+}
+
+.third .title {
+    font-size: large;
+    font-weight: bold;
+}
+
+.third img {
+    height: 3em;
+    aspect-ratio: 1;
+    padding-top: 0.5em;
+}
+
+.third .player-name {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.leaderboard-final {
+    background-color: mediumpurple;
+    border-radius: 8px;
+    border: 1px solid black;
+    margin-left: 2em;
+    margin-right: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.leaderboard-column {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+}

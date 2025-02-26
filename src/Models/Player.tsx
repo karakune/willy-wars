@@ -1,9 +1,11 @@
 import {Dispatch, SetStateAction} from "react";
+import mushroom from "../assets/Mushroom.webp";
 
 export class Player {
     private _rank: number = 0;
     private _score: number = 0;
     public name: string = "";
+    public avatar: string = mushroom;
 
     constructor(name?: string) {
         if (name != null) {
