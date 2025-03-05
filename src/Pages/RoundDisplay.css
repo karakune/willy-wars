@@ -1,0 +1,42 @@
+.round-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 9fr;
+    justify-self: stretch;
+    align-items: stretch;
+
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.round-display h2 {
+    place-self: center;
+}
+
+.round-participants {
+    display: grid;
+    grid-template-rows: 1fr 4fr 1fr;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    justify-items: center;
+
+    background-color: mediumseagreen;
+}
+
+.round-participants h3 {
+    grid-column-start: span 2;
+}
+
+.round-participants-vs {
+    font-size: 5em;
+    font-weight: bold;
+}
+
+.submit-scores-button {
+    grid-column-start: span 2;
+    place-self: center;
+}
+
+.dongle-board {
+    align-self: stretch;
+}

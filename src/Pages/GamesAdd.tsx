@@ -50,27 +50,35 @@ export default function GamesAdd ({players, onGamesSubmitted}: {players: Player[
     }, [isSubmitSuccessful])
 
     return (
-        <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <h1>Enter Games</h1>
-            {errors?.games && <p style={{color: "red"}}>{errors?.games?.root?.message}</p>}
-            {errors?.root?.missingName && <p style={{color: "red"}}>{errors?.root?.missingName?.message}</p>}
-            {/* TODO: 1 slot visible on page load */}
-            {fields.map((player, i) => (
-                <div className="row" key={player.id}>
-                    <input placeholder="Enter a name..." {...register(`games.${i}.name` as const, {required: true,})} />
-                    <button type="button" onClick={() => remove(i)}>✖</button>
-                </div>
+        <div className="app-layout">
+            <div className="header">
+                <h1>Enter Games</h1>
+            </div>
+            <div className="main-content">
+                <form onSubmit={handleSubmit(onSubmit, onError)}>
+                    {errors?.games && <p style={{color: "red"}}>{errors?.games?.root?.message}</p>}
+                    {errors?.root?.missingName && <p style={{color: "red"}}>{errors?.root?.missingName?.message}</p>}
+                    {/* TODO: 1 slot visible on page load */}
+                    {fields.map((player, i) => (
+                        <div className="row" key={player.id}>
+                            <input placeholder="Enter a name..." {...register(`games.${i}.name` as const, {required: true,})} />
+                            <button type="button" onClick={() => remove(i)}>✖</button>
+                        </div>
 
-            ))}
-            <div className="row">
-                <button type="button" onClick={() => append(new Game())}>One more</button>
+                    ))}
+                    <div className="row">
+                        <button type="button" onClick={() => append(new Game())}>One more</button>
+                    </div>
+                </form>
             </div>
-            <div className="row">
-                <Link to="/PlayersAdd">
-                    <button type="button">Back</button>
-                </Link>
-                <button type="submit">Let's get started</button>
+            <div className="footer">
+                <div className="row">
+                    <Link to="/PlayersAdd">
+                        <button type="button">Back</button>
+                    </Link>
+                    <button type="submit">Let's get started</button>
+                </div>
             </div>
-        </form>
+        </div>
     );
 }

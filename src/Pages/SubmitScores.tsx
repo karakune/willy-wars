@@ -1,4 +1,4 @@
-import "../App.css";
+import "./SubmitScores.css"
 import {Link} from "react-router";
 import PlayerBadge from "../Components/PlayerBadge.tsx";
 import {Player} from "../Models/Player.tsx";
@@ -7,36 +7,41 @@ function PlayerEntry() {
     return (
         <div className="column" style={{alignItems:"center", minWidth: "0", gap:"2em"}}>
             <PlayerBadge player={new Player()}/>
-            <input style={{paddingRight: "0", paddingLeft: "0", width: "4em", textAlign:"center", marginLeft:"3em"}}
-                   type="number" min="0" step="1"/>
+            <input className="submit-score-input" type="number" min="0" step="1"/>
         </div>
     )
 }
 
 export default function SubmitScores (){
     return (
-        <>
-            <h1>Submit Scores</h1>
-            <div className="column" style={{gap:"5em", justifyContent:"center"}}>
-                <div className="row">
-                    <PlayerEntry/>
-                    <PlayerEntry/>
-                    <PlayerEntry/>
-                    <PlayerEntry/>
-                </div>
-                <div className="row" style={{justifyContent: "space-evenly"}}>
+        <div className="app-layout">
+            <div className="header">
+                <h1>Submit Scores</h1>
+            </div>
+            <div className="main-content submit-scores">
+                <PlayerBadge player={new Player()}/>
+                <PlayerBadge player={new Player()}/>
+                <PlayerBadge player={new Player()}/>
+                <PlayerBadge player={new Player()}/>
+                <input className="submit-score-input" type="number" min="0" step="1"/>
+                <input className="submit-score-input" type="number" min="0" step="1"/>
+                <input className="submit-score-input" type="number" min="0" step="1"/>
+                <input className="submit-score-input" type="number" min="0" step="1"/>
+                <div className="over-buttons">
                     <Link to="/WilliesDistribution">
                         <button style={{fontSize: "large"}}>Round Over</button>
                     </Link>
                     <Link
-                        to="/FinalResults"> {/* TODO: choose between WilliesDistribution or FinalResults based on round #*/}
+                          to="/FinalResults"> {/* TODO: choose between WilliesDistribution or FinalResults based on round #*/}
                         <button className="big-button">Tourney Over</button>
                     </Link>
                 </div>
-                <Link to="/RoundDisplay" style={{alignSelf:"flex-start", marginLeft: "3em"}}>
+            </div>
+            <div className="footer">
+                <Link to="/RoundDisplay">
                     <button>Nevermind</button>
                 </Link>
             </div>
-        </>
+        </div>
     );
 }

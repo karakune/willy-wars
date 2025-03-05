@@ -1,0 +1,18 @@
+.leaderboard {
+    background-color: mediumpurple;
+    border-radius: 8px;
+    border: 1px solid black;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    justify-items: center;
+}
+
+.leaderboard-row {
+    grid-column-start: span 3;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    place-items: center;
+    justify-self: stretch;
+}

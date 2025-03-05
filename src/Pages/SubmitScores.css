@@ -1,0 +1,18 @@
+.submit-scores {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.over-buttons {
+    grid-column-start: span 4;
+}
+
+.submit-score-input {
+    padding-right: 0;
+    padding-left: 0;
+    width: 4em;
+    text-align: center;
+    margin-left: 3em;
+}

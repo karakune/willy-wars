@@ -1,4 +1,3 @@
-import "../App.css";
 import "./FinalResults.css";
 import {Link} from "react-router";
 import PlayerBadge from "../Components/PlayerBadge.tsx";
@@ -60,21 +59,25 @@ export default function FinalResults(){
     }
 
     return (
-        <div>
-            <h1>Final Results</h1>
-            <div className="column">
-                <div className="row" style={{justifyContent: "space-evenly"}}>
-                    <TopThree player={new Player()} position={2}/>
-                    <TopThree player={new Player()} position={1}/>
-                    <TopThree player={new Player()} position={3}/>
-                </div>
-                <h2 style={{marginBottom: "0.3em"}}>The Dongle Board</h2>
-                <div className="leaderboard-final">
-                    <LeaderboardColumn/>
-                    <LeaderboardColumn/>
+        <div className="app-layout">
+            <div className="header">
+                <h1>Final Results</h1>
+            </div>
+            <div className="main-content">
+                <div className="column">
+                    <div className="row" style={{justifyContent: "space-evenly"}}>
+                        <TopThree player={new Player()} position={2}/>
+                        <TopThree player={new Player()} position={1}/>
+                        <TopThree player={new Player()} position={3}/>
+                    </div>
+                    <h2 style={{marginBottom: "0.3em"}}>The Dongle Board</h2>
+                    <div className="leaderboard-final">
+                        <LeaderboardColumn/>
+                        <LeaderboardColumn/>
+                    </div>
                 </div>
             </div>
-            <div className="row" style={{justifyContent: "flex-end", marginRight: "1em"}}>
+            <div className="footer">
                 <Link to="/">
                     <button>GG</button>
                 </Link>

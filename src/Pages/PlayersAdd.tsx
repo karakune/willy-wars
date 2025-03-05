@@ -45,27 +45,33 @@ export default function PlayersAdd ({players, onPlayersSubmitted}: {players: Pla
     }, [isSubmitSuccessful])
 
     return (
-        <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <h1>Enter Players</h1>
-            {errors?.players && <p style={{color: "red"}}>{errors?.players?.root?.message}</p>}
-            {errors?.root?.missingName && <p style={{color: "red"}}>{errors?.root?.missingName?.message}</p>}
-            {/* TODO: "empty" list with 4 slots when coming from new, current list when coming from GamesAdd */}
-            {fields.map((player, i) => (
-                <div className="row" key={player.id}>
-                    <input placeholder="Enter a name..." {...register(`players.${i}.name` as const, {required: true,})} />
-                    <button type="button" onClick={() => remove(i)}>✖</button>
-                </div>
-
-            ))}
-            <div className="row">
-                <button type="button" onClick={() => append(new Player())}>One more</button>
+        <div className="app-layout">
+            <div className="header">
+                <h1>Enter Players</h1>
             </div>
-            <div className="row">
+            <div className="main-content">
+                <form onSubmit={handleSubmit(onSubmit, onError)}>
+                    {errors?.players && <p style={{color: "red"}}>{errors?.players?.root?.message}</p>}
+                    {errors?.root?.missingName && <p style={{color: "red"}}>{errors?.root?.missingName?.message}</p>}
+                    {/* TODO: "empty" list with 4 slots when coming from new, current list when coming from GamesAdd */}
+                    {fields.map((player, i) => (
+                        <div className="row" key={player.id}>
+                            <input placeholder="Enter a name..." {...register(`players.${i}.name` as const, {required: true,})} />
+                            <button type="button" onClick={() => remove(i)}>✖</button>
+                        </div>
+
+                    ))}
+                    <div className="row">
+                        <button type="button" onClick={() => append(new Player())}>One more</button>
+                    </div>
+                </form>
+            </div>
+            <div className="footer">
                 <Link to="/">
                     <button type="button">Back</button>
                 </Link>
                 <button type="submit">Ok we're done</button>
             </div>
-        </form>
+        </div>
     );
 }
