@@ -1,5 +1,4 @@
 import "./DongleBoard.css"
-import PlayerBadge from "./PlayerBadge.tsx";
 import {Player} from "../Models/Player.tsx";
 
 function PlayerRow({player}: {player: Player}) {

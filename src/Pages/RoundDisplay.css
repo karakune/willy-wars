@@ -47,7 +47,7 @@
     align-self: stretch;
     padding: 1em;
     /*margin: 10%;*/
-    /*gap: 0.1em;*/
+    gap: 0.5em;
 
     display: flex;
     flex-direction: column;
@@ -62,4 +62,28 @@
 .dongle-board {
     align-self: stretch;
     margin-bottom: 1%;
+}
+
+.player-badge-round {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 100%;
+    column-gap: 1em;
+}
+
+.player-badge-round img {
+    place-self: center;
+    height: 4em;
+}
+
+.name-tag-round {
+    border: 1px solid black;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+}
+
+.name-tag-round label {
+    padding: 1em;
 }

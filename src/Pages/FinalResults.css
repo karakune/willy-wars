@@ -1,3 +1,15 @@
+.final-results {
+    place-self: stretch;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.final-results h2 {
+    margin-bottom: 0.3em;
+    place-self: center;
+}
+
 .top-three {
     display: flex;
     flex-flow: column;
@@ -68,15 +80,43 @@
     background-color: mediumpurple;
     border-radius: 8px;
     border: 1px solid black;
+
     margin-left: 2em;
     margin-right: 2em;
-    padding-top: 1em;
-    padding-bottom: 1em;
+
+    flex-grow: 1;
+
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .leaderboard-column {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
+    row-gap: 1px;
+}
+
+.player-badge-final {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 100%;
+}
+
+.player-badge-final img {
+    place-self: center;
+
+    width: 90%;
+}
+
+.name-tag-final {
+    border: 1px solid black;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+}
+
+.name-tag-final label {
+    padding-left: 1em;
+    padding-right: 1em;
 }

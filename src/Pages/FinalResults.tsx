@@ -1,7 +1,17 @@
 import "./FinalResults.css";
 import {Link} from "react-router";
-import PlayerBadge from "../Components/PlayerBadge.tsx";
 import {Player} from "../Models/Player.tsx";
+
+function PlayerBadge({player}: {player: Player}) {
+    return (
+        <div className="player-badge-final">
+            <img src={player.avatar} alt="player avatar"/>
+            <div className="name-tag-final">
+                <label>{player.name ? player.name : "unnamed"}</label>
+            </div>
+        </div>
+    );
+}
 
 export default function FinalResults(){
 
@@ -35,7 +45,7 @@ export default function FinalResults(){
 
     function LeaderboardColumn() {
         const rows = [];
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 6; i++) {
             let player = new Player();
             let startRow = (2 + i).toString();
             rows.push(
@@ -50,9 +60,9 @@ export default function FinalResults(){
         }
         return (
             <div className="leaderboard-column">
-                <b style={{gridColumnStart: "1", gridRowStart: "1"}}>Rank</b>
-                <b style={{gridColumnStart: "2", gridRowStart: "1"}}>Player</b>
-                <b style={{gridColumnStart: "3", gridRowStart: "1"}}>Score</b>
+                <b style={{placeSelf: "center", gridColumnStart: "1", gridRowStart: "1"}}>Rank</b>
+                <b style={{placeSelf: "center", gridColumnStart: "2", gridRowStart: "1"}}>Player</b>
+                <b style={{placeSelf: "center", gridColumnStart: "3", gridRowStart: "1"}}>Score</b>
                 {rows}
             </div>
         );
@@ -63,18 +73,17 @@ export default function FinalResults(){
             <div className="header">
                 <h1>Final Results</h1>
             </div>
-            <div className="main-content">
-                <div className="column">
-                    <div className="row" style={{justifyContent: "space-evenly"}}>
-                        <TopThree player={new Player()} position={2}/>
-                        <TopThree player={new Player()} position={1}/>
-                        <TopThree player={new Player()} position={3}/>
-                    </div>
-                    <h2 style={{marginBottom: "0.3em"}}>The Dongle Board</h2>
-                    <div className="leaderboard-final">
-                        <LeaderboardColumn/>
-                        <LeaderboardColumn/>
-                    </div>
+            <div className="main-content final-results">
+                <div className="row" style={{justifyContent: "space-evenly"}}>
+                    <TopThree player={new Player()} position={2}/>
+                    <TopThree player={new Player()} position={1}/>
+                    <TopThree player={new Player()} position={3}/>
+                </div>
+                <h2>The Dongle Board</h2>
+                <div className="leaderboard-final">
+                    <LeaderboardColumn/>
+                    <LeaderboardColumn/>
+                    <LeaderboardColumn/>
                 </div>
             </div>
             <div className="footer">

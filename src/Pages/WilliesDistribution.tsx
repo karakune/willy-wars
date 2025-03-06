@@ -1,6 +1,5 @@
 import "./WilliesDistribution.css";
 import {Link} from "react-router";
-// import PlayerBadge from "../Components/PlayerBadge.tsx";
 import {Player} from "../Models/Player.tsx";
 
 function PlayerBadge({player}: {player: Player}) {
