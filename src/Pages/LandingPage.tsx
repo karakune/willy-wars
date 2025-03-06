@@ -22,10 +22,10 @@ export default function LandingPage(){
                 <img style={{height:"100%"}} src={landingPic} alt="landing pic"/>
             </div>
             <div className="footer">
-                <button onClick={confirmNew}>New Tourney</button>
                 <Link to="/RoundDisplay">
                     <button>Pick up where ya left off</button>
                 </Link>
+                <button onClick={confirmNew}>New Tourney</button>
             </div>
         </div>
     );

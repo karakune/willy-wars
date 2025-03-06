@@ -5,7 +5,9 @@ export default function PlayerBadge({player}: {player: Player}) {
     return (
         <div className="player-badge">
             <img src={player.avatar} alt="player avatar"/>
-            <label>{player.name ? player.name : "unnamed"}</label>
+            <div className="name-tag">
+                <label>{player.name ? player.name : "unnamed"}</label>
+            </div>
         </div>
     );
 }

@@ -11,25 +11,47 @@
 
 .round-display h2 {
     place-self: center;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .round-participants {
-    display: grid;
-    grid-template-rows: 1fr 4fr 1fr;
-    grid-template-columns: 1fr 2fr;
-    align-items: center;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
 
     background-color: mediumseagreen;
 }
 
-.round-participants h3 {
-    grid-column-start: span 2;
+.round-participants-header {
+    align-self: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.round-participants-content {
+    flex-grow: 1;
+
+    display: grid;
+    grid-template-rows: 4fr 1fr;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    justify-items: center;
 }
 
 .round-participants-vs {
     font-size: 5em;
     font-weight: bold;
+}
+
+.round-participants-badges {
+    align-self: stretch;
+    padding: 1em;
+    /*margin: 10%;*/
+    /*gap: 0.1em;*/
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .submit-scores-button {
@@ -39,4 +61,5 @@
 
 .dongle-board {
     align-self: stretch;
+    margin-bottom: 1%;
 }

@@ -15,16 +15,18 @@ export default function RoundDisplay ({players, tourney}: {players: Player[], to
                 <h2>{tourney.getCurrentMatchInfo().game}</h2>
                 <h2>Dongle Board</h2>
                 <div className="round-participants">
-                    <h3>Round {tourney.getCurrentMatchInfo().round}</h3>
-                    <label className="round-participants-vs">VS</label>
-                    <div className="round-participants-badges">
-                        {tourney.getCurrentMatchInfo().participants.map((p, i) =>
-                            <PlayerBadge key={i} player={p}/>)}
-                    </div>
-                    <div className="submit-scores-button">
-                        <Link to="/SubmitScores">
-                            <button className="big-button" style={{margin: 10}}>Submit Scores</button>
-                        </Link>
+                    <h3 className="round-participants-header">Round {tourney.getCurrentMatchInfo().round}</h3>
+                    <div className="round-participants-content">
+                        <label className="round-participants-vs">VS</label>
+                        <div className="round-participants-badges">
+                            {tourney.getCurrentMatchInfo().participants.map((p, i) =>
+                                <PlayerBadge key={i} player={p}/>)}
+                        </div>
+                        <div className="submit-scores-button">
+                            <Link to="/SubmitScores">
+                                <button className="big-button" style={{margin: 10}}>Submit Scores</button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
                 <div className="dongle-board">

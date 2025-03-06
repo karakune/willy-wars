@@ -1,8 +1,10 @@
 .submit-scores {
+    place-self: stretch;
+
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    justify-items: center;
-    align-items: center;
+    place-items: center;
+    column-gap: 1em;
 }
 
 .over-buttons {
@@ -15,4 +17,27 @@
     width: 4em;
     text-align: center;
     margin-left: 3em;
+}
+
+.player-badge-submit {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 0.5em;
+    margin-bottom: 1em;
+}
+
+.player-badge-submit img {
+    height: 3em;
+}
+
+.name-tag-submit {
+    border: 1px solid black;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+}
+
+.name-tag-submit label {
+    padding: 1em;
 }

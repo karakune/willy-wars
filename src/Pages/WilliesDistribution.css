@@ -1,6 +1,15 @@
+.distribution {
+    place-self: stretch;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .distribution-line {
     display: flex;
     align-items: center;
+    margin-left: 5em;
 }
 
 .distribution-line span {
@@ -14,4 +23,27 @@
     padding: 1em;
     margin-left: 1em;
     margin-right: 1em;
+}
+
+.player-badge-distribution {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 100%;
+    column-gap: 1em;
+}
+
+.player-badge-distribution img {
+    height: 5em;
+}
+
+.name-tag-distribution {
+    border: 1px solid black;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+}
+
+.name-tag-distribution label {
+    padding: 1em;
 }
