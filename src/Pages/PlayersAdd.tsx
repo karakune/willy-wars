@@ -1,4 +1,4 @@
-import "../App.css";
+import "./PlayersAdd.css"
 import {Player} from "../Models/Player.tsx";
 import {useEffect} from "react";
 import {useForm, useFieldArray, SubmitHandler, SubmitErrorHandler} from "react-hook-form";
@@ -66,7 +66,7 @@ export default function PlayersAdd ({players, onPlayersSubmitted}: {players: Pla
                     </div>
                 </form>
             </div>
-            <div className="footer">
+            <div className="footer add-options">
                 <Link to="/">
                     <button type="button">Back</button>
                 </Link>

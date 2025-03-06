@@ -7,3 +7,9 @@
 .landing-page img {
     height: 100%;
 }
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}

@@ -43,12 +43,12 @@ export default function RoundDisplay ({players, tourney}: {players: Player[], to
                     <DongleBoard players={players}/>
                 </div>
             </div>
-            <div className="footer">
+            <div className="footer lower-left">
                 <Link to="/FixAMistake">
-                    <button>Fix a Mistake</button>
+                    <button className="small-button" style={{marginRight: "1em"}}>Fix a Mistake</button>
                 </Link>
                 <Link to="/">
-                    <button>Back to title</button>
+                    <button className="small-button">Back to title</button>
                 </Link>
             </div>
         </div>

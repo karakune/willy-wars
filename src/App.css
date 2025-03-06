@@ -79,6 +79,10 @@ button {
   font-size: large
 }
 
+.small-button {
+  font-size: small;
+}
+
 button:hover {
   border-color: #396cd8;
 }

@@ -71,13 +71,11 @@ export default function GamesAdd ({players, onGamesSubmitted}: {players: Player[
                     </div>
                 </form>
             </div>
-            <div className="footer">
-                <div className="row">
-                    <Link to="/PlayersAdd">
-                        <button type="button">Back</button>
-                    </Link>
-                    <button type="submit">Let's get started</button>
-                </div>
+            <div className="footer add-options">
+                <Link to="/PlayersAdd">
+                    <button type="button">Back</button>
+                </Link>
+                <button type="submit">Let's get started</button>
             </div>
         </div>
     );

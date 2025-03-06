@@ -43,9 +43,9 @@ export default function SubmitScores (){
                     </Link>
                 </div>
             </div>
-            <div className="footer">
+            <div className="footer lower-left">
                 <Link to="/RoundDisplay">
-                    <button>Nevermind</button>
+                    <button className="small-button">Nevermind</button>
                 </Link>
             </div>
         </div>

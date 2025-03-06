@@ -86,9 +86,9 @@ export default function FinalResults(){
                     <LeaderboardColumn/>
                 </div>
             </div>
-            <div className="footer">
+            <div className="footer lower-right">
                 <Link to="/">
-                    <button>GG</button>
+                    <button className="small-button">GG</button>
                 </Link>
             </div>
         </div>

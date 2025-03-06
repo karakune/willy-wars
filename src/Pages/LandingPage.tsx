@@ -21,7 +21,7 @@ export default function LandingPage(){
             <div className="main-content">
                 <img style={{height:"100%"}} src={landingPic} alt="landing pic"/>
             </div>
-            <div className="footer">
+            <div className="footer options">
                 <Link to="/RoundDisplay">
                     <button>Pick up where ya left off</button>
                 </Link>
