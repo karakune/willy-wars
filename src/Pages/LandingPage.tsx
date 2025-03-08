@@ -2,19 +2,20 @@ import "./LandingPage.css";
 import "../Components/AppLayout.css"
 import landingPic from "../assets/LandingPic.jpg";
 import {Link, useNavigate} from "react-router";
-// import ConfirmationPopup from '../ConfirmationPopup.tsx'
+import ConfirmationPopup from '../Components/ConfirmationPopup.tsx'
+import {useState} from "react";
 
 export default function LandingPage(){
+    const [showConfirmNew, setShowConfirmNew] = useState(false);
     const navigate = useNavigate();
-
-    const confirmNew = async function() {
-        // if (await ConfirmationPopup("A Willy Wars is ongoing, terminate it?", "Nah", "Yah")) {
-            navigate("/PlayersAdd");
-        // }
-    };
 
     return (
         <div className="app-layout">
+            <ConfirmationPopup isOpen={showConfirmNew} setOpen={setShowConfirmNew}
+                               onConfirm={() => navigate("/PlayersAdd")} onCancel={() => {}}
+                               title="A Willy Wars is ongoing, terminate it?" description=""
+                               confirmMessage="Yah" cancelMessage="Nah"
+            />
             <div className="header">
                 <h1>WILLY WARS</h1>
             </div>
@@ -25,7 +26,7 @@ export default function LandingPage(){
                 <Link to="/RoundDisplay">
                     <button>Pick up where ya left off</button>
                 </Link>
-                <button onClick={confirmNew}>New Tourney</button>
+                <button onClick={() => setShowConfirmNew(true)}>New Tourney</button>
             </div>
         </div>
     );

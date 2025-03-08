@@ -1,12 +1,13 @@
 import "../App.css";
 import {Game} from "../Models/Game.tsx";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useForm, useFieldArray, SubmitHandler, SubmitErrorHandler} from "react-hook-form";
 import {Link, useNavigate} from "react-router";
-import ConfirmationPopup from '../ConfirmationPopup.tsx'
 import {Player} from "../Models/Player.tsx";
+import ConfirmationPopup from "../Components/ConfirmationPopup.tsx";
 
 export default function GamesAdd ({players, onGamesSubmitted}: {players: Player[], onGamesSubmitted: any}){
+    const [showConfirm, setShowConfirm] = useState(false);
     const {control, register, handleSubmit, setError, clearErrors, reset, formState: {errors, isSubmitSuccessful}} = useForm();
     const {fields, append, remove} = useFieldArray({control, name: "games", rules: {
             validate: {
@@ -28,11 +29,11 @@ export default function GamesAdd ({players, onGamesSubmitted}: {players: Player[
 
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<any> = async (results) => {
-        if (await ConfirmationPopup(`You've got ${players.length} players and ${results.games.length} games. Ready to start?`,
-            "Hold up", "Let's GOOOOO")) {
+        // if (await ConfirmationPopup(`You've got ${players.length} players and ${results.games.length} games. Ready to start?`,
+        //     "Hold up", "Let's GOOOOO")) {
             onGamesSubmitted(results.games);
             navigate("/RoundDisplay");
-        }
+        // }
     };
     const onError: SubmitErrorHandler<any> = (erroneousFields) => {
         console.log(erroneousFields);
@@ -51,6 +52,11 @@ export default function GamesAdd ({players, onGamesSubmitted}: {players: Player[
 
     return (
         <div className="app-layout">
+            {/*<ConfirmationPopup isOpen={showConfirm} setOpen={setShowConfirm}*/}
+            {/*                   onConfirm={() => navigate("/PlayersAdd")} onCancel={() => {}}*/}
+            {/*                   title={`You've got ${players.length} players and ${results.games.length} games. Ready to start?`} description=""*/}
+            {/*                   confirmMessage="Yah" cancelMessage="Nah"*/}
+            {/*/>*/}
             <div className="header">
                 <h1>Enter Games</h1>
             </div>
