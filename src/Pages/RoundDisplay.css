@@ -15,20 +15,20 @@
     margin-bottom: 0;
 }
 
-.round-participants {
+.match-participants {
     display: flex;
     flex-direction: column;
 
     background-color: mediumseagreen;
 }
 
-.round-participants-header {
+.match-participants-header {
     align-self: center;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.round-participants-content {
+.match-participants-content {
     flex-grow: 1;
 
     display: grid;
@@ -38,12 +38,12 @@
     justify-items: center;
 }
 
-.round-participants-vs {
+.match-participants-vs {
     font-size: 5em;
     font-weight: bold;
 }
 
-.round-participants-badges {
+.match-participants-badges {
     align-self: stretch;
     padding: 1em;
     /*margin: 10%;*/

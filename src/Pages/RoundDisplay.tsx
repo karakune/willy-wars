@@ -24,11 +24,11 @@ export default function RoundDisplay ({players, tourney}: {players: Player[], to
             <div className="main-content round-display">
                 <h2>{tourney.getCurrentMatchInfo().game}</h2>
                 <h2>Dongle Board</h2>
-                <div className="round-participants">
-                    <h3 className="round-participants-header">Round {tourney.getCurrentMatchInfo().round}</h3>
-                    <div className="round-participants-content">
-                        <label className="round-participants-vs">VS</label>
-                        <div className="round-participants-badges">
+                <div className="match-participants">
+                    <h3 className="match-participants-header">Round {tourney.getCurrentMatchInfo().round}</h3>
+                    <div className="match-participants-content">
+                        <label className="match-participants-vs">VS</label>
+                        <div className="match-participants-badges">
                             {tourney.getCurrentMatchInfo().participants.map((p, i) =>
                                 <PlayerBadge key={i} player={p}/>)}
                         </div>
