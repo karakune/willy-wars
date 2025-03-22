@@ -1,6 +1,7 @@
 import "./WilliesDistribution.css";
 import {Link} from "react-router";
 import {Player} from "../Models/Player.tsx";
+import {useTourneyStore} from "../Stores/TourneyStore.tsx";
 
 function PlayerBadge({player}: {player: Player}) {
     return (
@@ -14,24 +15,18 @@ function PlayerBadge({player}: {player: Player}) {
 }
 
 export default function WilliesDistribution (){
+    const tourneyStore = useTourneyStore.getState();
     return (
         <div className="app-layout">
             <div className="header">
                 <h1>Willies Distribution</h1>
             </div>
             <div className="main-content distribution">
-                <div className="distribution-line">
-                    <PlayerBadge player={new Player()}/><span>gets <b>5</b> Willies</span>
-                </div>
-                <div className="distribution-line">
-                    <PlayerBadge player={new Player()}/><span>gets <b>5</b> Willies</span>
-                </div>
-                <div className="distribution-line">
-                    <PlayerBadge player={new Player()}/><span>gets <b>5</b> Willies</span>
-                </div>
-                <div className="distribution-line">
-                    <PlayerBadge player={new Player()}/><span>gets <b>5</b> Willies</span>
-                </div>
+                {tourneyStore.matchParticipants.map((p, i) =>
+                    <div key={i} className="distribution-line">
+                        <PlayerBadge player={p}/><span>gets <b>5</b> Willies</span>
+                    </div>
+                )}
             </div>
             <div className="footer">
                 <Link to="/RoundDisplay">
