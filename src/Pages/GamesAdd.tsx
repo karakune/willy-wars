@@ -5,8 +5,10 @@ import {useForm, useFieldArray, SubmitHandler, SubmitErrorHandler} from "react-h
 import {Link, useNavigate} from "react-router";
 import {Player} from "../Models/Player.tsx";
 import ConfirmationPopup from "../Components/ConfirmationPopup.tsx";
+import {useTourneyStore} from "../Stores/TourneyStore.tsx";
 
-export default function GamesAdd ({players, onGamesSubmitted}: {players: Player[], onGamesSubmitted: any}){
+export default function GamesAdd (){
+    const tourneyStore = useTourneyStore.getState();
     const [showConfirm, setShowConfirm] = useState(false);
     const {control, register, handleSubmit, setError, clearErrors, reset, formState: {errors, isSubmitSuccessful}} = useForm();
     const {fields, append, remove} = useFieldArray({control, name: "games", rules: {
@@ -25,13 +27,13 @@ export default function GamesAdd ({players, onGamesSubmitted}: {players: Player[
                     return true;
                 },
             },
-        }});
+        }})
 
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<any> = async (results) => {
         // if (await ConfirmationPopup(`You've got ${players.length} players and ${results.games.length} games. Ready to start?`,
         //     "Hold up", "Let's GOOOOO")) {
-            onGamesSubmitted(results.games);
+        //     onGamesSubmitted(results.games);
             navigate("/RoundDisplay");
         // }
     };
@@ -61,6 +63,11 @@ export default function GamesAdd ({players, onGamesSubmitted}: {players: Player[
                 <h1>Enter Games</h1>
             </div>
             <div className="main-content">
+                <ul>
+                    {tourneyStore.players.map((player, i) => (
+                        <li key={i}>{player.name}</li>
+                    ))}
+                </ul>
                 <form onSubmit={handleSubmit(onSubmit, onError)}>
                     {errors?.games && <p style={{color: "red"}}>{errors?.games?.root?.message}</p>}
                     {errors?.root?.missingName && <p style={{color: "red"}}>{errors?.root?.missingName?.message}</p>}

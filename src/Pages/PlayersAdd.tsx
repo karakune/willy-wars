@@ -1,76 +1,115 @@
 import "./PlayersAdd.css"
 import {Player} from "../Models/Player.tsx";
-import {useEffect} from "react";
-import {useForm, useFieldArray, SubmitHandler, SubmitErrorHandler} from "react-hook-form";
+import {useState} from "react";
 import {Link, useNavigate} from "react-router";
+import {useTourneyStore} from "../Stores/TourneyStore.tsx";
 
-export default function PlayersAdd ({players, onPlayersSubmitted}: {players: Player[], onPlayersSubmitted: any}){
-    const {control, register, handleSubmit, setError, clearErrors, reset, formState: {errors, isSubmitSuccessful}} = useForm();
-    const {fields, append, remove} = useFieldArray({control, name: "players", rules: {
-        validate: {
-            validatePlayers: (players: any) => {
-                clearErrors("root.missingName");
-
-                if (players.length < 2) {
-                    return "Must have at least two players";
-                }
-
-                if (new Set(players.map((p: Player) => p.name)).size !== players.length) {
-                    return "All player names must be unique";
-                }
-
-                return true;
-            },
-        },
-    }});
+export default function PlayersAdd() {
+    const tourneyStore = useTourneyStore.getState();
+    const [players, setPlayers] = useState<Player[]>(tourneyStore.players);
+    const [missingNameError, setMissingNameError] = useState(false);
+    const [minPlayersError, setMinPlayersError] = useState(false);
+    const [uniqueNamesError, setUniqueNamesError] = useState(false);
 
     const navigate = useNavigate();
-    const onSubmit: SubmitHandler<any> = (results) => {
-        onPlayersSubmitted(results.players);
-        navigate("/GamesAdd");
-    };
-    const onError: SubmitErrorHandler<any> = (erroneousFields) => {
-        console.log(erroneousFields);
-        // @ts-ignore
-        if (erroneousFields.players?.some(p => p != null && p.name.type === "required")) {
-            setError("root.missingName", {
-                type: "missingName",
-                message: "All players must have a name"
-            })
+
+    function displayErrorMessages() {
+        let errors = [];
+
+        if (missingNameError) {
+            errors.push(<p className="error-message">All players must have a name</p>)
         }
+
+        if (minPlayersError) {
+            errors.push(<p className="error-message">Must have at least four players</p>)
+        }
+
+        if (uniqueNamesError) {
+            errors.push(<p className="error-message">All player names must be unique</p>)
+        }
+
+        return (
+            <>
+                {errors}
+            </>
+        )
     }
 
-    useEffect(() => {
-        reset({keepValues: true})
-    }, [isSubmitSuccessful])
+    function onPlayerNameChanged(newName: string, index: number) {
+        let updatedPlayers = players.map((p, i) => {
+            if (i == index) {
+                p.name = newName;
+            }
+            return p;
+        });
+
+        setPlayers(updatedPlayers);
+    }
+
+    function removePlayer(index: number) {
+        setPlayers(players.filter((p, i) => i !== index));
+    }
+
+    function validatePlayers() : boolean {
+        setMinPlayersError(false);
+        setMissingNameError(false);
+        setUniqueNamesError(false);
+
+        if (players.length < 4) {
+            setMinPlayersError(true);
+            return false;
+        }
+
+        for (let player of players) {
+            if (!player.name) {
+                setMissingNameError(true);
+                return false;
+            }
+        }
+
+        if (new Set(players.map((p: Player) => p.name)).size !== players.length) {
+            setUniqueNamesError(true)
+            return false;
+        }
+
+        return true;
+    }
+
+    function submitPlayers() {
+        if (!validatePlayers()) {
+            return;
+        }
+
+        console.log(players);
+        tourneyStore.setPlayers(players);
+
+        navigate("/GamesAdd");
+    }
 
     return (
         <div className="app-layout">
             <div className="header">
                 <h1>Enter Players</h1>
             </div>
-            <div className="main-content">
-                <form onSubmit={handleSubmit(onSubmit, onError)}>
-                    {errors?.players && <p style={{color: "red"}}>{errors?.players?.root?.message}</p>}
-                    {errors?.root?.missingName && <p style={{color: "red"}}>{errors?.root?.missingName?.message}</p>}
-                    {/* TODO: "empty" list with 4 slots when coming from new, current list when coming from GamesAdd */}
-                    {fields.map((player, i) => (
-                        <div className="row" key={player.id}>
-                            <input placeholder="Enter a name..." {...register(`players.${i}.name` as const, {required: true,})} />
-                            <button type="button" onClick={() => remove(i)}>✖</button>
-                        </div>
-
-                    ))}
-                    <div className="row">
-                        <button type="button" onClick={() => append(new Player())}>One more</button>
+            <div className="main-content scroll-view">
+                {displayErrorMessages()}
+                {players.map((player, i) => (
+                    <div className="row" key={i}>
+                        <input value={player.name} placeholder="Enter a name..." onChange={(e) => {
+                            onPlayerNameChanged(e.target.value, i);
+                        }}/>
+                        <button type="button" onClick={() => removePlayer(i)}>✖</button>
                     </div>
-                </form>
+                ))}
+                <div className="row">
+                    <button type="button" onClick={() => setPlayers([...players, new Player()])}>One more</button>
+                </div>
             </div>
             <div className="footer add-options">
                 <Link to="/">
                     <button type="button">Back</button>
                 </Link>
-                <button type="submit">Ok we're done</button>
+                <button type="button" onClick={submitPlayers}>Ok we're done</button>
             </div>
         </div>
     );

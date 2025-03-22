@@ -12,11 +12,13 @@ import SubmitScores from "../Pages/SubmitScores.tsx";
 import WilliesDistribution from "../Pages/WilliesDistribution.tsx";
 import FinalResults from "../Pages/FinalResults.tsx";
 import FixAMistake from "../Pages/FixAMistake.tsx";
+import {useTourneyStore} from "../Stores/TourneyStore.tsx";
 
 
 export default function AppLayout() {
     function SetupRoutes() {
-        const [players, setPlayers] = useState<Array<Player>>([]);
+        const tourneyStore = useTourneyStore.getState();
+        const [players, setPlayers] = useState<Array<Player>>(tourneyStore.players);
         const [games, setGames] = useState<Array<Game>>([]);
         const [tourney, setTourney] = useState<Tourney>();
 
@@ -42,11 +44,9 @@ export default function AppLayout() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<LandingPage/>}/>
-                    <Route path="/PlayersAdd" element={<PlayersAdd players={players}
-                                                                   onPlayersSubmitted={onPlayersSubmitted}/>}/>
-                    <Route path="/GamesAdd" element={<GamesAdd players={players}
-                                                               onGamesSubmitted={onGamesSubmitted}/>}/>
-                    <Route path="/RoundDisplay" element={<RoundDisplay players={players} tourney={getTourney()}/>}/>
+                    <Route path="/PlayersAdd" element={<PlayersAdd/>}/>
+                    <Route path="/GamesAdd" element={<GamesAdd/>}/>
+                    <Route path="/RoundDisplay" element={<RoundDisplay players={tourneyStore.players} tourney={getTourney()}/>}/>
                     <Route path="/SubmitScores" element={<SubmitScores/>}/>
                     <Route path="/WilliesDistribution" element={<WilliesDistribution/>}/>
                     <Route path="/FinalResults" element={<FinalResults/>}/>
