@@ -2,7 +2,7 @@ import "./RoundDisplay.css"
 import {Link} from "react-router";
 import {Player} from "../Models/Player.tsx";
 import DongleBoard from "../Components/DongleBoard.tsx";
-import {Tourney} from "../Models/Tourney.tsx";
+import {useTourneyStore} from "../Stores/TourneyStore.tsx";
 
 function PlayerBadge({player}: {player: Player}) {
     return (
@@ -15,21 +15,23 @@ function PlayerBadge({player}: {player: Player}) {
     );
 }
 
-export default function RoundDisplay ({players, tourney}: {players: Player[], tourney: Tourney }){
+export default function RoundDisplay (){
+    const tourneyStore = useTourneyStore.getState();
+
     return (
         <div className="app-layout">
             <div className="header">
                 <h1>WILLY WARS</h1>
             </div>
             <div className="main-content round-display">
-                <h2>{tourney.getCurrentMatchInfo().game}</h2>
+                <h2>{tourneyStore.currentGame.name}</h2>
                 <h2>Dongle Board</h2>
                 <div className="match-participants">
-                    <h3 className="match-participants-header">Round {tourney.getCurrentMatchInfo().round}</h3>
+                    <h3 className="match-participants-header">Round {tourneyStore.currentRound}</h3>
                     <div className="match-participants-content">
                         <label className="match-participants-vs">VS</label>
                         <div className="match-participants-badges">
-                            {tourney.getCurrentMatchInfo().participants.map((p, i) =>
+                            {tourneyStore.matchParticipants.map((p, i) =>
                                 <PlayerBadge key={i} player={p}/>)}
                         </div>
                         <div className="submit-scores-button">
@@ -40,7 +42,7 @@ export default function RoundDisplay ({players, tourney}: {players: Player[], to
                     </div>
                 </div>
                 <div className="dongle-board">
-                    <DongleBoard players={players}/>
+                    <DongleBoard players={tourneyStore.players}/>
                 </div>
             </div>
             <div className="footer lower-left">

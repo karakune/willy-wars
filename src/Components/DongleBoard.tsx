@@ -25,27 +25,27 @@ export default function DongleBoard({players}: {players: Player[]}) {
             </div>
             {/*Max 20*/}
             <div className="leaderboard-rows">
-                {/*{players.map(p => <PlayerRow player={p}/>)}*/}
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
-                <PlayerRow player={new Player()}/>
+                {players.map((p, i) => <PlayerRow key={i} player={p}/>)}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
+                {/*<PlayerRow player={new Player()}/>*/}
             </div>
         </div>
     );

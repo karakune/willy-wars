@@ -11,18 +11,26 @@ interface TourneyStore {
 
     setPlayers: (players: Player[]) => void,
     setGames: (games: Game[]) => void,
-    initialize: (players: Player[], games: Game[]) => void,
+    startNewTourney: () => void,
 
     proceedToNextRound: () => void,
     isLastRound: () => boolean
 }
 
+const debugGetDefaultPlayers = () => {
+    return [new Player("Steve"), new Player("Joey"), new Player("Suzie"), new Player("Saint-Petersburg")];
+}
+
+const debugGetDefaultGames = () => {
+    return [new Game("Goon Troop")];
+}
+
 export const useTourneyStore = create<TourneyStore>()((set, get) => ({
-    players: [new Player(), new Player(), new Player(), new Player()],
-    games: [new Game()],
-    currentRound: 0,
-    matchParticipants: [],
-    currentGame: new Game(),
+    players: debugGetDefaultPlayers(),
+    games: debugGetDefaultGames(),
+    currentRound: 1,
+    matchParticipants: debugGetDefaultPlayers(),
+    currentGame: debugGetDefaultGames()[0],
 
     setPlayers: function(players: Player[]) {
         set({players: players});
@@ -32,15 +40,13 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
         set({games: games});
     },
 
-    initialize: function(players: Player[], games: Game[]) {
-        shufflePlayers(players);
+    startNewTourney: function() {
+        shufflePlayers(this.players);
 
         set({
-            players: players,
-            games: games,
-            currentGame: games[0],
+            currentGame: this.games[0],
             currentRound: 1,
-            matchParticipants: players.slice(0, 3)
+            matchParticipants: this.players.slice(0, 4)
         });
     },
 
