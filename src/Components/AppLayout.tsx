@@ -1,7 +1,5 @@
 import "./AppLayout.css";
 import React, {useState} from "react";
-import {loadPlayersIntoState, Player, savePlayers} from "../Models/Player.tsx";
-import {Game, loadGamesIntoState, saveGames} from "../Models/Game.tsx";
 import {loadTourneyIntoState, Tourney} from "../Models/Tourney.tsx";
 import {BrowserRouter, Route, Routes} from "react-router";
 import LandingPage from "../Pages/LandingPage.tsx";
@@ -18,20 +16,7 @@ import {useTourneyStore} from "../Stores/TourneyStore.tsx";
 export default function AppLayout() {
     function SetupRoutes() {
         const tourneyStore = useTourneyStore.getState();
-        const [players, setPlayers] = useState<Array<Player>>(tourneyStore.players);
-        const [games, setGames] = useState<Array<Game>>([]);
         const [tourney, setTourney] = useState<Tourney>();
-
-        function onPlayersSubmitted(submitted: Player[]) {
-            savePlayers(submitted);
-            loadPlayersIntoState(setPlayers, submitted);
-        }
-
-        function onGamesSubmitted(submitted: Game[]) {
-            saveGames(submitted);
-            setTourney(new Tourney());
-            loadGamesIntoState(setGames, submitted);
-        }
 
         function getTourney(): Tourney {
             if (tourney == null) {

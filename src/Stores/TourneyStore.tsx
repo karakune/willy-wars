@@ -10,6 +10,7 @@ interface TourneyStore {
     currentGame: Game,
 
     setPlayers: (players: Player[]) => void,
+    setGames: (games: Game[]) => void,
     initialize: (players: Player[], games: Game[]) => void,
 
     proceedToNextRound: () => void,
@@ -18,13 +19,17 @@ interface TourneyStore {
 
 export const useTourneyStore = create<TourneyStore>()((set, get) => ({
     players: [new Player(), new Player(), new Player(), new Player()],
-    games: [],
+    games: [new Game()],
     currentRound: 0,
     matchParticipants: [],
     currentGame: new Game(),
 
     setPlayers: function(players: Player[]) {
         set({players: players});
+    },
+
+    setGames: function(games: Game[]) {
+        set({games: games});
     },
 
     initialize: function(players: Player[], games: Game[]) {

@@ -80,7 +80,6 @@ export default function PlayersAdd() {
             return;
         }
 
-        console.log(players);
         tourneyStore.setPlayers(players);
 
         navigate("/GamesAdd");
