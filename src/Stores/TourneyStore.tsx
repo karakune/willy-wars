@@ -59,7 +59,6 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
         let players = this.players;
         let matchBonus = getMatchBonus();
 
-        console.log(participants);
         for (let participant of participants) {
             switch (participant.matchRank) {
                 case 1:

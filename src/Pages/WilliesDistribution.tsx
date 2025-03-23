@@ -38,7 +38,8 @@ export default function WilliesDistribution (){
                 <h1>Willies Distribution</h1>
             </div>
             <div className="main-content distribution">
-                {tourneyStore.matchParticipants.map((p, i) =>
+                {tourneyStore.isLastRound() && <h1 style={{alignSelf: "center"}}>Last Round, no willies!</h1>}
+                {!tourneyStore.isLastRound()  && tourneyStore.matchParticipants.map((p, i) =>
                     <div key={i} className="distribution-line">
                         <PlayerBadge player={p}/><span>gets <b>{getWilliesPerMatchRank(p)}</b> Willies</span>
                     </div>
