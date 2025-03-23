@@ -41,3 +41,11 @@
 .name-tag-submit label {
     padding: 1em;
 }
+
+.error-messages {
+    grid-column-start: span 4;
+}
+
+.error-message {
+    color: red;
+}

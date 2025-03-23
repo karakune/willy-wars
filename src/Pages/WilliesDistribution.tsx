@@ -16,6 +16,22 @@ function PlayerBadge({player}: {player: Player}) {
 
 export default function WilliesDistribution (){
     const tourneyStore = useTourneyStore.getState();
+
+    function getWilliesPerMatchRank(p: Player) {
+        switch (p.matchRank) {
+            case 1:
+                return 0;
+            case 2:
+                return 2;
+            case 3:
+                return 3;
+            case 4:
+                return 5;
+            default:
+                return -1;
+        }
+    }
+
     return (
         <div className="app-layout">
             <div className="header">
@@ -24,13 +40,13 @@ export default function WilliesDistribution (){
             <div className="main-content distribution">
                 {tourneyStore.matchParticipants.map((p, i) =>
                     <div key={i} className="distribution-line">
-                        <PlayerBadge player={p}/><span>gets <b>5</b> Willies</span>
+                        <PlayerBadge player={p}/><span>gets <b>{getWilliesPerMatchRank(p)}</b> Willies</span>
                     </div>
                 )}
             </div>
             <div className="footer">
                 <Link to="/RoundDisplay">
-                    <button className="big-button">Next Round</button>
+                    <button className="big-button">Next Match</button>
                 </Link>
             </div>
         </div>

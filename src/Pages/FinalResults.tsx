@@ -50,7 +50,7 @@ export default function FinalResults(){
             let startRow = (2 + i).toString();
             rows.push(
                 <div key={i} className="leaderboard-column" style={{gridColumn: "1 / span 3", gridRowStart: startRow}}>
-                    <span style={{gridColumnStart: "1", gridRowStart: "1", display:"flex", justifyContent:"center", alignItems:"center"}}>{player.rank}</span>
+                    <span style={{gridColumnStart: "1", gridRowStart: "1", display:"flex", justifyContent:"center", alignItems:"center"}}>0</span>
                     <div style={{gridColumnStart: "2", gridRowStart: "1"}}>
                         <PlayerBadge player={player}/>
                     </div>

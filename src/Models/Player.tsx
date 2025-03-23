@@ -2,10 +2,10 @@ import {Dispatch, SetStateAction} from "react";
 import mushroom from "../assets/Mushroom.webp";
 
 export class Player {
-    private _rank: number = 0;
     private _score: number = 0;
     public name: string = "";
     public avatar: string = mushroom;
+    public matchRank: number = 0;
 
     constructor(name?: string) {
         if (name != null) {
@@ -18,12 +18,6 @@ export class Player {
     }
     set score(value: number) {
         this._score = value;
-    }
-    get rank(): number {
-        return this._rank;
-    }
-    set rank(value: number) {
-        this._rank = value;
     }
 }
 

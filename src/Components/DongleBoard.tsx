@@ -1,10 +1,10 @@
 import "./DongleBoard.css"
 import {Player} from "../Models/Player.tsx";
 
-function PlayerRow({player}: {player: Player}) {
+function PlayerRow({player, rank}: {player: Player, rank: number}) {
     return (
         <div className="leaderboard-row">
-            <label>{player.rank}</label>
+            <label>{rank}</label>
             <div className="leaderboard-row-player">
                 <div className="name-tag">
                     <label>{player.name ? player.name : "unnamed"}</label>
@@ -25,7 +25,7 @@ export default function DongleBoard({players}: {players: Player[]}) {
             </div>
             {/*Max 20*/}
             <div className="leaderboard-rows">
-                {players.map((p, i) => <PlayerRow key={i} player={p}/>)}
+                {players.map((p, i) => <PlayerRow key={i} player={p} rank={i+1}/>)}
                 {/*<PlayerRow player={new Player()}/>*/}
                 {/*<PlayerRow player={new Player()}/>*/}
                 {/*<PlayerRow player={new Player()}/>*/}

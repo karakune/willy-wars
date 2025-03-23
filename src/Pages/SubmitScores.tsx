@@ -2,15 +2,8 @@ import "./SubmitScores.css"
 import {Link, useNavigate} from "react-router";
 import {Player} from "../Models/Player.tsx";
 import {useTourneyStore} from "../Stores/TourneyStore.tsx";
+import {useState} from "react";
 
-function PlayerEntry({player}: {player: Player}) {
-    return (
-        <div>
-            <PlayerBadge player={player}/>
-            <input className="submit-score-input" type="number" min="0" step="1"/>
-        </div>
-    )
-}
 
 function PlayerBadge({player}: {player: Player}) {
     return (
@@ -26,30 +19,47 @@ function PlayerBadge({player}: {player: Player}) {
 export default function SubmitScores(){
     const tourneyStore = useTourneyStore.getState();
     const navigate = useNavigate();
-    const roundOverPath = "/WilliesDistribution";
+    const matchOverPath = "/WilliesDistribution";
     const tourneyOverPath = "/FinalResults";
+    const [scores, setScores] = useState([0,0,0,0]);
+    const [rangeError, setRangeError] = useState(false);
+
+    function PlayerEntry({player, index}: {player: Player, index: number}) {
+        return (
+            <div>
+                <PlayerBadge player={player}/>
+                <input className="submit-score-input" type="number" min="0" max="4" step="1" onChange={(e) => {
+                    let updatedScores = scores;
+                    updatedScores[index] = Number(e.target.value);
+                    setScores(updatedScores);
+                }}/>
+            </div>
+        )
+    }
+
+    function displayErrorMessages() {
+        let errors = [];
+
+        if (rangeError) {
+            errors.push(<p className="error-message">All scores must be between 1 and 4</p>);
+        }
+
+        return (
+            <div className="error-messages">
+                {errors}
+            </div>
+        )
+    }
 
     function validateScores() : boolean {
-        // setMinPlayersError(false);
-        // setMissingNameError(false);
-        // setUniqueNamesError(false);
-        //
-        // if (players.length < 4) {
-        //     setMinPlayersError(true);
-        //     return false;
-        // }
-        //
-        // for (let player of players) {
-        //     if (!player.name) {
-        //         setMissingNameError(true);
-        //         return false;
-        //     }
-        // }
-        //
-        // if (new Set(players.map((p: Player) => p.name)).size !== players.length) {
-        //     setUniqueNamesError(true)
-        //     return false;
-        // }
+        setRangeError(false);
+
+        for (let score of scores) {
+            if (score < 1 || score > 4) {
+                setRangeError(true);
+                return false;
+            }
+        }
 
         return true;
     }
@@ -59,13 +69,20 @@ export default function SubmitScores(){
             return;
         }
 
+        let participants = tourneyStore.matchParticipants;
+        for (let i = 0; i < participants.length; i++) {
+            participants[i].matchRank = scores[i];
+        }
+
+        tourneyStore.addScores(participants);
+
         navigate(path);
     }
 
-    function DisplayContinueButton(isLastRound: boolean) {
+    function displayContinueButton(isLastRound: boolean) {
         if (!isLastRound) {
             return (
-                <button className="big-button" onClick={() => submitScores(roundOverPath)}>Round Over</button>
+                <button className="big-button" onClick={() => submitScores(matchOverPath)}>Match Over</button>
             );
         } else {
             return (
@@ -80,11 +97,12 @@ export default function SubmitScores(){
                 <h1>Submit Scores</h1>
             </div>
             <div className="main-content submit-scores">
-                {tourneyStore.matchParticipants.map((p, i) => <PlayerEntry key={i} player={p}/>)}
+                {tourneyStore.matchParticipants.map((p, i) => <PlayerEntry key={i} player={p} index={i}/>)}
+                {displayErrorMessages()}
                 <div className="over-buttons">
-                    {/*{DisplayContinueButton(tourneyStore.isLastRound())}*/}
-                    {DisplayContinueButton(false)}
-                    {DisplayContinueButton(true)}
+                    {/*{displayContinueButton(tourneyStore.isLastMatch())}*/}
+                    {displayContinueButton(false)}
+                    {displayContinueButton(true)}
                 </div>
             </div>
             <div className="footer lower-left">
