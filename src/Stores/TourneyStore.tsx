@@ -62,16 +62,16 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
         for (let participant of participants) {
             switch (participant.matchRank) {
                 case 1:
-                    participant.score += Math.round((4 + matchBonus) * 10) / 10;
+                    participant.score += 4000 + matchBonus;
                     break;
                 case 2:
-                    participant.score += Math.round((3 + matchBonus) * 10) / 10;
+                    participant.score += 3000 + matchBonus;
                     break;
                 case 3:
-                    participant.score += Math.round((2 + matchBonus) * 10) / 10;
+                    participant.score += 2000 + matchBonus;
                     break;
                 case 4:
-                    participant.score += Math.round((1 + matchBonus) * 10) / 10;
+                    participant.score += 1000 + matchBonus;
                     break;
                 default:
                     console.error("Invalid ranking. Expected 1 to 4, got " + participant.matchRank);
@@ -160,16 +160,16 @@ const getMatchBonus = () => {
     let match = useTourneyStore.getState().currentMatch;
     switch (match) {
         case 1:
-            return 0.4;
+            return 400;
         case 2:
-            return 0.3;
+            return 300;
         case 3:
-            return 0.2;
+            return 200;
         case 4:
-            return 0.1;
+            return 100;
         default:
             console.error("Invalid match number. Expected 1 to 4, got " + match);
-            return 0.0;
+            return 0;
     }
 }
 
