@@ -22,11 +22,17 @@ interface TourneyStore {
 }
 
 const debugGetDefaultPlayers = () => {
-    return [new Player("Steve"), new Player("Joey"), new Player("Suzie"), new Player("Saint-Petersburg")];
+    return [
+        new Player("Steve"), new Player("Joey"), new Player("Suzie"), new Player("Saint-Petersburg"),
+        new Player("Douglas"), new Player("Jonas"), new Player("Marco"), new Player("Anthony"),
+        new Player("Sally"), new Player("Craig"), new Player("Bonnie"), new Player("Marie"),
+        new Player("Bertrand"), new Player("Arnaud"), new Player("Chancey"), new Player("Michael"),
+        new Player("Laurent"), new Player("Big Mac"), new Player("Daniel"), new Player("Justin"),
+    ];
 }
 
 const debugGetDefaultGames = () => {
-    return [new Game("Goon Troop")];
+    return [new Game("Goon Troop"), new Game("Mario Kart"), new Game("Frogger")];
 }
 
 export const useTourneyStore = create<TourneyStore>()((set, get) => ({
