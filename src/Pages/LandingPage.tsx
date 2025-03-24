@@ -1,6 +1,6 @@
 import "./LandingPage.css";
 import "../Components/AppLayout.css"
-import landingPic from "../assets/LandingPic.jpg";
+import splashScreen from "../assets/SplashScreen.png"
 import {Link, useNavigate} from "react-router";
 import ConfirmationPopup from '../Components/ConfirmationPopup.tsx'
 import {useState} from "react";
@@ -17,10 +17,10 @@ export default function LandingPage(){
                                confirmMessage="Yah" cancelMessage="Nah"
             />
             <div className="header">
-                <h1>WILLY WARS</h1>
+
             </div>
-            <div className="main-content">
-                <img style={{height:"100%"}} src={landingPic} alt="landing pic"/>
+            <div className="main-content splash-screen">
+                <img src={splashScreen} alt="splash screen"/>
             </div>
             <div className="footer options">
                 <Link to="/RoundDisplay">
