@@ -9,6 +9,7 @@ interface TourneyStore {
     currentMatch: number,
     matchParticipants: Player[],
     currentGame: Game,
+    matches: Player[][],
 
     setPlayers: (players: Player[]) => void,
     setGames: (games: Game[]) => void,
@@ -35,6 +36,7 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
     currentMatch: 1,
     matchParticipants: debugGetDefaultPlayers(),
     currentGame: debugGetDefaultGames()[0],
+    matches: [],
 
     setPlayers: function(players: Player[]) {
         set({players: players});
@@ -47,11 +49,14 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
     startNewTourney: function() {
         shufflePlayers(this.players);
 
+        let matches = createMatches(this.players);
+
         set({
             currentGame: this.games[0],
             currentRound: 1,
             currentMatch: 1,
-            matchParticipants: this.players.slice(0, 4)
+            matches: matches,
+            matchParticipants: matches[0]
         });
     },
 
@@ -106,14 +111,34 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
 
         set({players: players});
 
-        if (this.currentMatch < 4) {
+        // Same round
+        if (this.currentMatch <= this.matches.length) {
             set({currentMatch: this.currentMatch + 1});
-        } else {
-            if (this.currentRound == 2) {
-                pickNextGame();
-                set({currentMatch: 1, currentRound: 1});
-            } else {
-                set({currentMatch: 1, currentRound: 2});
+        }
+        // New Round
+        else {
+            // Players have been sorted by this point
+
+            // Same Game
+            if (this.currentRound != 2) {
+                let newMatches = createMatches(players);
+                console.log(newMatches);
+                set({currentMatch: 1, currentRound: 2, matches: newMatches});
+            }
+            // New Game
+            else {
+                let nextGameIndex = this.games.indexOf(this.currentGame) + 1;
+
+                // Put the matches in reverse order in the last game's last round
+                let isLastRound = nextGameIndex == this.games.length - 1;
+                if (isLastRound) {
+                    players.reverse();
+                }
+
+                let newMatches = createMatches(players);
+                console.log(newMatches);
+
+                set({currentGame: this.games[nextGameIndex], currentMatch: 1, currentRound: 1, matches: newMatches});
             }
         }
 
@@ -135,7 +160,7 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
             return false;
         }
 
-        return this.currentMatch == 4 && this.isLastRound();
+        return this.currentMatch <= this.matches.length && this.isLastRound();
     }
 }));
 
@@ -156,8 +181,29 @@ const shufflePlayers = (players: Player[]) => {
     }
 }
 
+const createMatches = (players: Player[]) => {
+    let matches = [];
+    for (let i = 0; i < players.length; i += 4) {
+        let match = [];
+        for (let j = i; j < players.length && j < i + 4; j++) {
+            match.push(players[j]);
+        }
+        matches.push(match);
+    }
+
+    return matches;
+}
+
 const getMatchBonus = () => {
-    let match = useTourneyStore.getState().currentMatch;
+    let store = useTourneyStore.getState();
+    let game = store.games.indexOf(store.currentGame);
+    let round = store.currentRound;
+    let match = store.currentMatch;
+
+    if (game === 0 && round == 1) {
+        return 0;
+    }
+
     switch (match) {
         case 1:
             return 400;
@@ -173,17 +219,9 @@ const getMatchBonus = () => {
     }
 }
 
-const pickNextGame = () => {
-    let store = useTourneyStore.getState();
-    let i = store.games.indexOf(store.currentGame);
-
-    useTourneyStore.setState({currentGame: store.games[i+1]});
-}
-
 const pickNextParticipants = () => {
-    //TODO: pick next participants
+    let store = useTourneyStore.getState();
+    let matches = store.matches;
 
-    // let store = useTourneyStore.getState();
-
-    // useTourneyStore.setState({});
+    useTourneyStore.setState({matchParticipants: matches[store.currentMatch - 1]});
 }
