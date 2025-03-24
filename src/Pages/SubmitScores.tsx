@@ -21,7 +21,7 @@ export default function SubmitScores(){
     const navigate = useNavigate();
     const matchOverPath = "/WilliesDistribution";
     const tourneyOverPath = "/FinalResults";
-    const [scores, setScores] = useState([0,0,0,0]);
+    const [scores, setScores] = useState(tourneyStore.matchParticipants.map(() => 0));
     const [rangeError, setRangeError] = useState(false);
 
     function PlayerEntry({player, index}: {player: Player, index: number}) {
@@ -55,7 +55,7 @@ export default function SubmitScores(){
         setRangeError(false);
 
         for (let score of scores) {
-            if (score < 1 || score > 4) {
+            if (score < 1 || score > tourneyStore.matchParticipants.length) {
                 setRangeError(true);
                 return false;
             }
