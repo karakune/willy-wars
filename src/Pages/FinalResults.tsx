@@ -1,6 +1,7 @@
 import "./FinalResults.css";
 import {Link} from "react-router";
 import {Player} from "../Models/Player.tsx";
+import {useTourneyStore} from "../Stores/TourneyStore.tsx";
 
 function PlayerBadge({player}: {player: Player}) {
     return (
@@ -14,6 +15,7 @@ function PlayerBadge({player}: {player: Player}) {
 }
 
 export default function FinalResults(){
+    const tourneyStore = useTourneyStore.getState();
 
     function TopThree({player, position}: {player: Player, position: number}) {
         let classes = "top-three ";
@@ -43,14 +45,19 @@ export default function FinalResults(){
         )
     }
 
-    function LeaderboardColumn() {
+    function LeaderboardColumn({column}: {column: number}) {
         const rows = [];
         for (let i = 0; i < 6; i++) {
-            let player = new Player();
+            let index = 3 + (6 * column) + i;
+            if (index >= tourneyStore.players.length) {
+                break;
+            }
+
+            let player = tourneyStore.players[index];
             let startRow = (2 + i).toString();
             rows.push(
                 <div key={i} className="leaderboard-column" style={{gridColumn: "1 / span 3", gridRowStart: startRow}}>
-                    <span style={{gridColumnStart: "1", gridRowStart: "1", display:"flex", justifyContent:"center", alignItems:"center"}}>0</span>
+                    <span style={{gridColumnStart: "1", gridRowStart: "1", display:"flex", justifyContent:"center", alignItems:"center"}}>{index+1}</span>
                     <div style={{gridColumnStart: "2", gridRowStart: "1"}}>
                         <PlayerBadge player={player}/>
                     </div>
@@ -75,15 +82,15 @@ export default function FinalResults(){
             </div>
             <div className="main-content final-results">
                 <div className="row" style={{justifyContent: "space-evenly"}}>
-                    <TopThree player={new Player()} position={2}/>
-                    <TopThree player={new Player()} position={1}/>
-                    <TopThree player={new Player()} position={3}/>
+                    <TopThree player={tourneyStore.players[1]} position={2}/>
+                    <TopThree player={tourneyStore.players[0]} position={1}/>
+                    <TopThree player={tourneyStore.players[2]} position={3}/>
                 </div>
                 <h2>The Dongle Board</h2>
                 <div className="leaderboard-final">
-                    <LeaderboardColumn/>
-                    <LeaderboardColumn/>
-                    <LeaderboardColumn/>
+                    <LeaderboardColumn column={0}/>
+                    <LeaderboardColumn column={1}/>
+                    <LeaderboardColumn column={2}/>
                 </div>
             </div>
             <div className="footer lower-right">
