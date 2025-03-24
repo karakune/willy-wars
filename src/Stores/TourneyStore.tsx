@@ -112,7 +112,7 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
         set({players: players});
 
         // Same round
-        if (this.currentMatch <= this.matches.length) {
+        if (this.currentMatch < this.matches.length) {
             set({currentMatch: this.currentMatch + 1});
         }
         // New Round
@@ -122,7 +122,6 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
             // Same Game
             if (this.currentRound != 2) {
                 let newMatches = createMatches(players);
-                console.log(newMatches);
                 set({currentMatch: 1, currentRound: 2, matches: newMatches});
             }
             // New Game
@@ -136,7 +135,6 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
                 }
 
                 let newMatches = createMatches(players);
-                console.log(newMatches);
 
                 set({currentGame: this.games[nextGameIndex], currentMatch: 1, currentRound: 1, matches: newMatches});
             }

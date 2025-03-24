@@ -1,5 +1,5 @@
 import "./WilliesDistribution.css";
-import {Link} from "react-router";
+import {Link, useNavigate} from "react-router";
 import {Player} from "../Models/Player.tsx";
 import {useTourneyStore} from "../Stores/TourneyStore.tsx";
 
@@ -16,6 +16,7 @@ function PlayerBadge({player}: {player: Player}) {
 
 export default function WilliesDistribution (){
     const tourneyStore = useTourneyStore.getState();
+    const navigate = useNavigate();
 
     function getWilliesPerMatchRank(p: Player) {
         switch (p.matchRank) {
@@ -32,6 +33,11 @@ export default function WilliesDistribution (){
         }
     }
 
+    function proceed() {
+        tourneyStore.proceedToNextMatch();
+        navigate("/RoundDisplay");
+    }
+
     return (
         <div className="app-layout">
             <div className="header">
@@ -39,16 +45,14 @@ export default function WilliesDistribution (){
             </div>
             <div className="main-content distribution">
                 {tourneyStore.isLastRound() && <h1 style={{alignSelf: "center"}}>Last Round, no willies!</h1>}
-                {!tourneyStore.isLastRound()  && tourneyStore.matchParticipants.map((p, i) =>
+                {!tourneyStore.isLastRound() && tourneyStore.matchParticipants.map((p, i) =>
                     <div key={i} className="distribution-line">
                         <PlayerBadge player={p}/><span>gets <b>{getWilliesPerMatchRank(p)}</b> Willies</span>
                     </div>
                 )}
             </div>
             <div className="footer">
-                <Link to="/RoundDisplay">
-                    <button className="big-button">Next Match</button>
-                </Link>
+                <button className="big-button" onClick={proceed}>Next Match</button>
             </div>
         </div>
     );
