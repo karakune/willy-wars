@@ -32,7 +32,7 @@ const debugGetDefaultPlayers = () => {
 }
 
 const debugGetDefaultGames = () => {
-    return [new Game("Goon Troop"), new Game("Mario Kart"), new Game("Frogger")];
+    return [new Game("Goon Troop", "tank"), new Game("Mario Kart", "snake"), new Game("Frogger", "unspot")];
 }
 
 export const useTourneyStore = create<TourneyStore>()((set, get) => ({
@@ -40,7 +40,7 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
     games: debugGetDefaultGames(),
     currentRound: 1,
     currentMatch: 1,
-    matchParticipants: debugGetDefaultPlayers(),
+    matchParticipants: debugGetDefaultPlayers().slice(0, 4),
     currentGame: debugGetDefaultGames()[0],
     matches: [],
 

@@ -23,7 +23,7 @@ export default function RoundDisplay (){
             <div className="header">
                 <h1>WILLY WARS</h1>
             </div>
-            <div className="main-content round-display">
+            <div className="main-content round-display" style={{backgroundImage: `url(${tourneyStore.currentGame.banner})`}}>
                 <h2>{tourneyStore.currentGame.name}</h2>
                 <h2>Dongle Board</h2>
                 <div className="match-participants">

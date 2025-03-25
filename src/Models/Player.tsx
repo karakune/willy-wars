@@ -1,5 +1,5 @@
-import question from "../assets/question.jpg";
-import chungus from "../assets/Chungus.jpg";
+import question from "../assets/Avatars/question.jpg";
+import chungus from "../assets/Avatars/Chungus.jpg";
 
 
 export class Player {
