@@ -76,6 +76,10 @@ export default function SubmitScores(){
 
         tourneyStore.addScores(participants);
 
+        if (path === tourneyOverPath) {
+            tourneyStore.save();
+        }
+
         navigate(path);
     }
 

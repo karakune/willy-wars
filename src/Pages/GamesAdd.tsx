@@ -88,6 +88,7 @@ export default function GamesAdd (){
     function submitGames() {
         tourneyStore.setGames(games);
         tourneyStore.startNewTourney();
+        tourneyStore.save();
         navigate("/RoundDisplay");
     }
 

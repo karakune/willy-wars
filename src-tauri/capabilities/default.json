@@ -8,6 +8,23 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "sql:default"
+    "sql:default",
+    "fs:default",
+    {
+      "identifier": "fs:allow-exists",
+      "allow": [{ "path": "$APPCACHE/*" }]
+    },
+    {
+      "identifier": "fs:allow-create",
+      "allow": [{ "path": "$APPCACHE/*" }]
+    },
+    {
+      "identifier": "fs:allow-read-text-file",
+      "allow": [{ "path": "$APPCACHE/*" }]
+    },
+    {
+      "identifier": "fs:allow-write-text-file",
+      "allow": [{ "path": "$APPCACHE/*" }]
+    }
   ]
 }

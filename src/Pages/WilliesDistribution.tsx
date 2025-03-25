@@ -35,6 +35,7 @@ export default function WilliesDistribution (){
 
     function proceed() {
         tourneyStore.proceedToNextMatch();
+        tourneyStore.save();
         navigate("/RoundDisplay");
     }
 

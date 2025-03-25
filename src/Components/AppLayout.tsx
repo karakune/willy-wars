@@ -8,9 +8,37 @@ import SubmitScores from "../Pages/SubmitScores.tsx";
 import WilliesDistribution from "../Pages/WilliesDistribution.tsx";
 import FinalResults from "../Pages/FinalResults.tsx";
 import FixAMistake from "../Pages/FixAMistake.tsx";
+import {useEffect, useState} from "react";
+import {useTourneyStore} from "../Stores/TourneyStore.tsx";
+import {BaseDirectory, readTextFile} from "@tauri-apps/plugin-fs";
 
 
 export default function AppLayout() {
+    const [isDataLoaded, setDataLoaded] = useState(false);
+    const tourneyStore = useTourneyStore;
+
+    useEffect(() => {
+        readTextFile("save.json", {baseDir: BaseDirectory.AppCache})
+            .then((text) => {
+                let asJson = JSON.parse(text);
+                tourneyStore.setState({
+                    players: asJson.players,
+                    games: asJson.games,
+                    currentRound: asJson.currentRound,
+                    currentMatch: asJson.currentMatch,
+                    matchParticipants: asJson.matchParticipants,
+                    currentGame: asJson.currentGame,
+                    matches: asJson.matches,
+                })
+            })
+            .catch(() => {
+                tourneyStore.getState().save();
+            })
+            .finally(() => {
+                setDataLoaded(true);
+            });
+    }, [isDataLoaded]);
+
     function SetupRoutes() {
         return (
             <BrowserRouter>
@@ -29,6 +57,9 @@ export default function AppLayout() {
     }
 
     return (
-        <SetupRoutes/>
+        <>
+            {!isDataLoaded && <label>loading...</label>}
+            {isDataLoaded && <SetupRoutes/>}
+        </>
     );
 }

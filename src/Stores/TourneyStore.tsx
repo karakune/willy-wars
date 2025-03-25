@@ -1,4 +1,5 @@
 import {create} from "zustand";
+import {BaseDirectory, writeTextFile} from "@tauri-apps/plugin-fs";
 import {Player} from "../Models/Player.tsx";
 import {Game} from "../Models/Game.tsx";
 
@@ -17,8 +18,10 @@ interface TourneyStore {
 
     addScores: (participants: Player[]) => void,
     proceedToNextMatch: () => void,
-    isLastMatch: () => boolean
-    isLastRound: () => boolean
+    isLastMatch: () => boolean,
+    isLastRound: () => boolean,
+
+    save: () => void
 }
 
 const debugGetDefaultPlayers = () => {
@@ -53,11 +56,18 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
     },
 
     startNewTourney: function() {
-        shufflePlayers(this.players);
+        // Reset player scores
+        let players = this.players;
+        for (let player of players) {
+            player.score = 0;
+        }
 
-        let matches = createMatches(this.players);
+        shufflePlayers(players);
+
+        let matches = createMatches(players);
 
         set({
+            players: players,
             currentGame: this.games[0],
             currentRound: 1,
             currentMatch: 1,
@@ -165,6 +175,10 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
         }
 
         return this.currentMatch <= this.matches.length && this.isLastRound();
+    },
+
+    save: async () => {
+        await writeTextFile("save.json", JSON.stringify(get(), null, 2), {baseDir: BaseDirectory.AppCache});
     }
 }));
 
