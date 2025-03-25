@@ -1,36 +1,45 @@
-import {Dispatch, SetStateAction} from "react";
-import mushroom from "../assets/Mushroom.webp";
+import question from "../assets/question.jpg";
+import chungus from "../assets/Chungus.jpg";
+
 
 export class Player {
-    private _score: number = 0;
+    public score: number = 0;
     public name: string = "";
-    public avatar: string = mushroom;
+    public avatar: string = question;
     public matchRank: number = 0;
 
-    constructor(name?: string) {
+    constructor(name?: string, avatar?: string) {
         if (name != null) {
             this.name = name;
         }
+
+        if (avatar != null) {
+            this.avatar = avatar;
+        }
     }
 
-    get score(): number {
-        return this._score;
-    }
-    set score(value: number) {
-        this._score = value;
-    }
-}
-
-export function savePlayers(players: Player[]) {
-    // TODO: save to backend
-}
-
-export function loadPlayersIntoState(setPlayersState: Dispatch<SetStateAction<Player[]>>, debugPlayers: Player[] = []) {
-    if (debugPlayers.length > 0) {
-        setPlayersState(debugPlayers);
-    } else {
-        // TODO: fetch from backend
-        let players: Player[] = [];
-        setPlayersState(players);
+    public static getAllAvatars(): string[] {
+        return [
+            chungus,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+            question,
+        ];
     }
 }

@@ -3,6 +3,7 @@ import {Player} from "../Models/Player.tsx";
 import {useState} from "react";
 import {Link, useNavigate} from "react-router";
 import {useTourneyStore} from "../Stores/TourneyStore.tsx";
+import AvatarPopup from "../Components/AvatarPopup.tsx";
 
 export default function PlayersAdd() {
     const tourneyStore = useTourneyStore.getState();
@@ -10,6 +11,8 @@ export default function PlayersAdd() {
     const [missingNameError, setMissingNameError] = useState(false);
     const [minPlayersError, setMinPlayersError] = useState(false);
     const [uniqueNamesError, setUniqueNamesError] = useState(false);
+    const [isAvatarPopupActive, setAvatarPopupActive] = useState(false);
+    const [avatarPopupTarget, setAvatarPopupTarget] = useState<Player>();
 
     const navigate = useNavigate();
 
@@ -85,8 +88,29 @@ export default function PlayersAdd() {
         navigate("/GamesAdd");
     }
 
+    function openAvatarPopup(player: Player) {
+        setAvatarPopupTarget(player);
+        setAvatarPopupActive(true);
+    }
+
+    function setAvatar(avatar: string) {
+        let updatedPlayers = players.map((p) => {
+            if (p.name === avatarPopupTarget?.name) {
+                return new Player(p.name, avatar);
+            }
+            return p;
+        });
+
+        setPlayers(updatedPlayers);
+        setAvatarPopupTarget(undefined);
+    }
+
     return (
         <div className="app-layout">
+            <AvatarPopup isOpen={isAvatarPopupActive} setOpen={setAvatarPopupActive}
+                         onConfirm={setAvatar} onCancel={() => {setAvatarPopupTarget(undefined)}}
+                         cancelMessage="Screw it"
+            />
             <div className="header">
                 <h1>Enter Players</h1>
             </div>
@@ -97,6 +121,9 @@ export default function PlayersAdd() {
                         <input value={player.name} placeholder="Enter a name..." onChange={(e) => {
                             onPlayerNameChanged(e.target.value, i);
                         }}/>
+                        <button style={{paddingTop: "0.1em", paddingBottom: "0.1em"}} type="button" onClick={() => openAvatarPopup(player)}>
+                            <img src={player.avatar} style={{height: "2em"}}/>
+                        </button>
                         <button type="button" onClick={() => removePlayer(i)}>✖</button>
                     </div>
                 ))}

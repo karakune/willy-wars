@@ -1,0 +1,13 @@
+.avatar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+.avatar-grid button {
+    padding: 0;
+}
+
+.avatar {
+    height: 5em;
+}
