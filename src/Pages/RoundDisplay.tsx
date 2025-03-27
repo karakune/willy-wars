@@ -27,7 +27,7 @@ export default function RoundDisplay (){
                 <h2>{tourneyStore.currentGame.name}</h2>
                 <h2>Dongle Board</h2>
                 <div className="match-participants">
-                    <h3 className="match-participants-header">Round {tourneyStore.currentRound}</h3>
+                    <h3 className="match-participants-header">Round {tourneyStore.currentRound} Match {tourneyStore.currentMatch}</h3>
                     <div className="match-participants-content">
                         <label className="match-participants-vs">VS</label>
                         <div className="match-participants-badges">

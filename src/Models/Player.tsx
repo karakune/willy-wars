@@ -7,6 +7,8 @@ export class Player {
     public name: string = "";
     public avatar: string = question;
     public matchRank: number = 0;
+    public previousMatchRank: number = 0;
+    public playedThisRound: boolean = false;
 
     constructor(name?: string, avatar?: string) {
         if (name != null) {

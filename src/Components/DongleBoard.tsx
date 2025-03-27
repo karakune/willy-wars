@@ -2,12 +2,14 @@ import "./DongleBoard.css"
 import {Player} from "../Models/Player.tsx";
 
 function PlayerRow({player, rank}: {player: Player, rank: number}) {
+    let color = player.playedThisRound ? "red" : "green"
+
     return (
         <div className="leaderboard-row">
             <label>{rank}</label>
             <div className="leaderboard-row-player">
                 <div className="name-tag">
-                    <label>{player.name ? player.name : "unnamed"}</label>
+                    <label style={{color: color}}>{player.name ? player.name : "unnamed"}</label>
                 </div>
             </div>
             <label className="leaderboard-row-score">{player.score}</label>

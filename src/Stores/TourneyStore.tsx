@@ -38,6 +38,16 @@ const debugGetDefaultGames = () => {
     return [new Game("Goon Troop", "tank"), new Game("Mario Kart", "snake"), new Game("Frogger", "unspot")];
 }
 
+const debugGetDefaultMatches = () => {
+    return [
+        [new Player("Saint-Petersburg"), new Player("Marco"), new Player("Bertrand"), new Player("Justin")],
+        [new Player("Sally"), new Player("Michael"), new Player("Marie"), new Player("Arnaud")],
+        [new Player("Bonnie"), new Player("Big Rolla"), new Player("Jonas"), new Player("Elia")],
+        [new Player("Suzie"), new Player("Big Mac"), new Player("Joey"), new Player("Daniel")],
+        [new Player("Craig"), new Player("Douglas"), new Player("Chancey"), new Player("Laurent")]
+    ]
+}
+
 export const useTourneyStore = create<TourneyStore>()((set, get) => ({
     players: debugGetDefaultPlayers(),
     games: debugGetDefaultGames(),
@@ -45,7 +55,7 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
     currentMatch: 1,
     matchParticipants: debugGetDefaultPlayers().slice(0, 4),
     currentGame: debugGetDefaultGames()[0],
-    matches: [],
+    matches: debugGetDefaultMatches(),
 
     setPlayers: function(players: Player[]) {
         set({players: players});
@@ -60,6 +70,8 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
         let players = this.players;
         for (let player of players) {
             player.score = 0;
+            player.previousMatchRank = 0;
+            player.playedThisRound = false;
         }
 
         shufflePlayers(players);
@@ -78,9 +90,9 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
 
     addScores: function(participants: Player[]) {
         let players = this.players;
-        let matchBonus = getMatchBonus();
 
         for (let participant of participants) {
+            let matchBonus = getMatchBonus(participant);
             switch (participant.matchRank) {
                 case 1:
                     participant.score += 4000 + matchBonus;
@@ -102,6 +114,8 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
             players.map(player => {
                 if (player.name === participant.name) {
                     player.score = participant.score;
+                    player.previousMatchRank = participant.matchRank;
+                    player.playedThisRound = true;
                 }
             });
         }
@@ -129,11 +143,18 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
 
         // Same round
         if (this.currentMatch < this.matches.length) {
+
+            set({players: players});
             set({currentMatch: this.currentMatch + 1});
         }
         // New Round
         else {
             // Players have been sorted by this point
+            for (let p of players) {
+                p.playedThisRound = false;
+            }
+
+            set({players: players});
 
             // Same Game
             if (this.currentRound != 2) {
@@ -212,17 +233,8 @@ const createMatches = (players: Player[]) => {
     return matches;
 }
 
-const getMatchBonus = () => {
-    let store = useTourneyStore.getState();
-    let game = store.games.indexOf(store.currentGame);
-    let round = store.currentRound;
-    let match = store.currentMatch;
-
-    if (game === 0 && round == 1) {
-        return 0;
-    }
-
-    switch (match) {
+const getMatchBonus = (participant: Player) => {
+    switch (participant.previousMatchRank) {
         case 1:
             return 400;
         case 2:
@@ -231,8 +243,10 @@ const getMatchBonus = () => {
             return 200;
         case 4:
             return 100;
+        case 0:
+            return 0;
         default:
-            console.error("Invalid match number. Expected 1 to 4, got " + match);
+            console.error("Invalid previousMatchRank. Expected 1 to 4, got " + participant.previousMatchRank);
             return 0;
     }
 }
