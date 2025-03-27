@@ -2,6 +2,7 @@ import "./FinalResults.css";
 import {Link} from "react-router";
 import {Player} from "../Models/Player.tsx";
 import {useTourneyStore} from "../Stores/TourneyStore.tsx";
+import splashScreen from "../assets/SplashScreen.png"
 
 function PlayerBadge({player}: {player: Player}) {
     return (
@@ -80,7 +81,7 @@ export default function FinalResults(){
             <div className="header">
                 <h1>Final Results</h1>
             </div>
-            <div className="main-content final-results">
+            <div className="main-content final-results" style={{backgroundImage: `url(${splashScreen})`}}>
                 <div className="row" style={{justifyContent: "space-evenly"}}>
                     <TopThree player={tourneyStore.players[1]} position={2}/>
                     <TopThree player={tourneyStore.players[0]} position={1}/>

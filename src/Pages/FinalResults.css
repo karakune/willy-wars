@@ -3,6 +3,12 @@
 
     display: flex;
     flex-direction: column;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: screen;
+    background-color: lightgrey;
 }
 
 .final-results h2 {
@@ -77,7 +83,7 @@
 }
 
 .leaderboard-final {
-    background-color: mediumpurple;
+    background-color: lightgrey;
     border-radius: 8px;
     border: 1px solid black;
 
