@@ -1,18 +1,19 @@
 import Modal from "react-modal";
 import React from "react";
-import {Player} from "../Models/Player.tsx";
 import "./AvatarPopup.css"
 
 export default function AvatarPopup(
     {
         isOpen,
         setOpen,
+        avatarList,
         onConfirm,
         onCancel,
         cancelMessage = "cancel"
     }:{
         isOpen: boolean,
         setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+        avatarList: string[],
         onConfirm: (avatar: string) => void,
         onCancel: () => void,
         cancelMessage?: string
@@ -36,7 +37,7 @@ export default function AvatarPopup(
             <div className="column">
                 <h2>Choose an avatar</h2>
                 <div className="avatar-grid">
-                    {Player.getAllAvatars().map((avatar, i) =>
+                    {avatarList.map((avatar, i) =>
                         <button key={i} onClick={() => handleConfirm(avatar)}>
                             <img className="avatar" src={avatar}/>
                         </button>

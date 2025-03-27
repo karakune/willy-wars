@@ -107,7 +107,7 @@ export default function PlayersAdd() {
 
     return (
         <div className="app-layout">
-            <AvatarPopup isOpen={isAvatarPopupActive} setOpen={setAvatarPopupActive}
+            <AvatarPopup isOpen={isAvatarPopupActive} setOpen={setAvatarPopupActive} avatarList={Player.getAllAvatars()}
                          onConfirm={setAvatar} onCancel={() => {setAvatarPopupTarget(undefined)}}
                          cancelMessage="Screw it"
             />

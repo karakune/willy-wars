@@ -28,4 +28,12 @@ export class Game {
             }
         }
     }
+
+    public static getAllBanners(): string[] {
+        return [
+            snakeVsSnake,
+            tanknarok,
+            unspottable,
+        ];
+    }
 }

@@ -4,6 +4,7 @@ import {useState} from "react";
 import {Link, useNavigate} from "react-router";
 import ConfirmationPopup from "../Components/ConfirmationPopup.tsx";
 import {useTourneyStore} from "../Stores/TourneyStore.tsx";
+import AvatarPopup from "../Components/AvatarPopup.tsx";
 
 export default function GamesAdd (){
     const tourneyStore = useTourneyStore.getState();
@@ -12,6 +13,8 @@ export default function GamesAdd (){
     const [minGamesError, setMinGamesError] = useState(false);
     const [uniqueNamesError, setUniqueNamesError] = useState(false);
     const [showConfirmStart, setShowConfirmStart] = useState(false);
+    const [isBannerPopupActive, setBannerPopupActive] = useState(false);
+    const [bannerPopupTarget, setBannerPopupTarget] = useState<Game>();
 
     const navigate = useNavigate();
 
@@ -77,6 +80,23 @@ export default function GamesAdd (){
         return true;
     }
 
+    function openBannerPopup(game: Game) {
+        setBannerPopupTarget(game);
+        setBannerPopupActive(true);
+    }
+
+    function setBanner(banner: string) {
+        let updatedGames = games.map((g) => {
+            if (g.name === bannerPopupTarget?.name) {
+                g.banner = banner;
+            }
+            return g;
+        });
+
+        setGames(updatedGames);
+        setBannerPopupTarget(undefined);
+    }
+
     function confirmStart() {
         if (!validateGames()) {
             return;
@@ -94,6 +114,10 @@ export default function GamesAdd (){
 
     return (
         <div className="app-layout">
+            <AvatarPopup isOpen={isBannerPopupActive} setOpen={setBannerPopupActive} avatarList={Game.getAllBanners()}
+                         onConfirm={setBanner} onCancel={() => {setBannerPopupTarget(undefined)}}
+                         cancelMessage="Screw it"
+            />
             <ConfirmationPopup isOpen={showConfirmStart} setOpen={setShowConfirmStart}
                                onConfirm={submitGames} onCancel={() => {}}
                                title="Start the wars?" description={`You've got ${tourneyStore.players.length} players and ${games.length} games. Ready to start?`}
@@ -109,6 +133,9 @@ export default function GamesAdd (){
                         <input value={game.name} placeholder="Enter a name..." onChange={(e) => {
                             onGameNameChanged(e.target.value, i);
                         }}/>
+                        <button style={{paddingTop: "0.1em", paddingBottom: "0.1em"}} type="button" onClick={() => openBannerPopup(game)}>
+                            <img src={game.banner} style={{height: "2em"}}/>
+                        </button>
                         <button type="button" onClick={() => removeGame(i)}>✖</button>
                     </div>
                 ))}
