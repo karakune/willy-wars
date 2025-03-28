@@ -25,6 +25,14 @@
     {
       "identifier": "fs:allow-write-text-file",
       "allow": [{ "path": "$APPCACHE/*" }]
+    },
+    {
+      "identifier": "fs:allow-rename",
+      "allow": [{ "path": "$APPCACHE/*" }]
+    },
+    {
+      "identifier": "fs:allow-remove",
+      "allow": [{ "path": "$APPCACHE/*" }]
     }
   ]
 }

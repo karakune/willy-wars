@@ -18,7 +18,7 @@ export default function AppLayout() {
     const tourneyStore = useTourneyStore;
 
     useEffect(() => {
-        readTextFile("save.json", {baseDir: BaseDirectory.AppCache})
+        readTextFile("latest.json", {baseDir: BaseDirectory.AppCache})
             .then((text) => {
                 let asJson = JSON.parse(text);
                 tourneyStore.setState({

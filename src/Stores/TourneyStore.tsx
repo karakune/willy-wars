@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {BaseDirectory, writeTextFile} from "@tauri-apps/plugin-fs";
+import {BaseDirectory, exists, writeTextFile, remove, rename} from "@tauri-apps/plugin-fs";
 import {Player} from "../Models/Player.tsx";
 import {Game} from "../Models/Game.tsx";
 
@@ -207,7 +207,23 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
     },
 
     save: async () => {
-        await writeTextFile("save.json", JSON.stringify(get(), null, 2), {baseDir: BaseDirectory.AppCache});
+        if (await exists("4matchesAgo.json", {baseDir: BaseDirectory.AppCache})) {
+            await remove("4matchesAgo.json", {baseDir: BaseDirectory.AppCache});
+        }
+        if (await exists("3matchesAgo.json", {baseDir: BaseDirectory.AppCache})) {
+            await rename("3matchesAgo.json", "4matchesAgo.json", {oldPathBaseDir: BaseDirectory.AppCache, newPathBaseDir: BaseDirectory.AppCache});
+        }
+        if (await exists("2matchesAgo.json", {baseDir: BaseDirectory.AppCache})) {
+            await rename("2matchesAgo.json", "3matchesAgo.json", {oldPathBaseDir: BaseDirectory.AppCache, newPathBaseDir: BaseDirectory.AppCache});
+        }
+        if (await exists("1matchAgo.json", {baseDir: BaseDirectory.AppCache})) {
+            await rename("1matchAgo.json", "2matchesAgo.json", {oldPathBaseDir: BaseDirectory.AppCache, newPathBaseDir: BaseDirectory.AppCache});
+        }
+        if (await exists("latest.json", {baseDir: BaseDirectory.AppCache})) {
+            await rename("latest.json", "1matchAgo.json", {oldPathBaseDir: BaseDirectory.AppCache, newPathBaseDir: BaseDirectory.AppCache});
+        }
+
+        await writeTextFile("latest.json", JSON.stringify(get(), null, 2), {baseDir: BaseDirectory.AppCache});
     }
 }));
 
