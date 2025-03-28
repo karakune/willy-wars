@@ -29,6 +29,7 @@ export default function AppLayout() {
                     matchParticipants: asJson.matchParticipants,
                     currentGame: asJson.currentGame,
                     matches: asJson.matches,
+                    isTourneyOver: asJson.isTourneyOver
                 })
             })
             .catch(() => {

@@ -11,6 +11,7 @@ interface TourneyStore {
     matchParticipants: Player[],
     currentGame: Game,
     matches: Player[][],
+    isTourneyOver: boolean,
 
     setPlayers: (players: Player[]) => void,
     setGames: (games: Game[]) => void,
@@ -18,6 +19,7 @@ interface TourneyStore {
 
     addScores: (participants: Player[]) => void,
     proceedToNextMatch: () => void,
+    setTourneyOver: () => void,
     isLastMatch: () => boolean,
     isLastRound: () => boolean,
 
@@ -56,6 +58,7 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
     matchParticipants: debugGetDefaultPlayers().slice(0, 4),
     currentGame: debugGetDefaultGames()[0],
     matches: debugGetDefaultMatches(),
+    isTourneyOver: false,
 
     setPlayers: function(players: Player[]) {
         set({players: players});
@@ -84,7 +87,8 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
             currentRound: 1,
             currentMatch: 1,
             matches: matches,
-            matchParticipants: matches[0]
+            matchParticipants: matches[0],
+            isTourneyOver: false
         });
     },
 
@@ -186,7 +190,7 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
             return false;
         }
 
-        return this.currentRound == 2 && this.currentGame === this.games[this.games.length - 1];
+        return this.currentRound == 2 && this.currentGame.name === this.games[this.games.length - 1].name;
     },
 
     isLastMatch: function () : boolean {
@@ -196,6 +200,10 @@ export const useTourneyStore = create<TourneyStore>()((set, get) => ({
         }
 
         return this.currentMatch <= this.matches.length && this.isLastRound();
+    },
+
+    setTourneyOver: function() {
+        set({isTourneyOver: true});
     },
 
     save: async () => {

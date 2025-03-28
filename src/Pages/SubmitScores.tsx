@@ -77,6 +77,7 @@ export default function SubmitScores(){
         tourneyStore.addScores(participants);
 
         if (path === tourneyOverPath) {
+            tourneyStore.setTourneyOver();
             tourneyStore.save();
         }
 
@@ -104,9 +105,9 @@ export default function SubmitScores(){
                 {tourneyStore.matchParticipants.map((p, i) => <PlayerEntry key={i} player={p} index={i}/>)}
                 {displayErrorMessages()}
                 <div className="over-buttons">
-                    {/*{displayContinueButton(tourneyStore.isLastMatch())}*/}
-                    {displayContinueButton(false)}
-                    {displayContinueButton(true)}
+                    {displayContinueButton(tourneyStore.isLastMatch())}
+                    {/*{displayContinueButton(false)}*/}
+                    {/*{displayContinueButton(true)}*/}
                 </div>
             </div>
             <div className="footer lower-left">
