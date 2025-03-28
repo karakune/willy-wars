@@ -42,6 +42,7 @@ export default function FinalResults(){
                 <span className="title">{title}</span>
                 <img src={player.avatar} alt="player avatar"/>
                 <span className="player-name">{player.name ? player.name : "unnamed"}</span>
+                <b>{player.score}</b>
             </div>
         )
     }
